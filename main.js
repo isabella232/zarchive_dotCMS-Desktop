@@ -1,6 +1,8 @@
 'use strict';
 
 const electron = require('electron');
+const debugMenu = require('debug-menu');
+
 // Module to control application life.
 const app = electron.app;
 const Menu = electron.Menu;
@@ -8,14 +10,18 @@ let menuTemplate = require('./menuTemplate');
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
+const ipcMain = require('electron').ipcMain;
+
 // Allows for live-reload while developing the app
 require('electron-reload')(__dirname + '/build');
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow, menu, dockMenu;
 
 let createWindow = () => {
+    //console.log('dir name is ' + __dirname);
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 800, height: 600});
 
@@ -41,6 +47,21 @@ let createWindow = () => {
 
     toggleFileTasks(true);
     toggleNewWindowTask(false);
+}
+
+ipcMain.on('load-page', (event, arg) => {
+    mainWindow.loadURL(arg);
+});
+
+const dMenu = Menu.buildFromTemplate([{
+    label: 'Debug',
+    submenu: debugMenu.windowDebugMenu(mainWindow)
+}]);
+
+if (process.platform !== 'darwin') {
+    mainWindow.setMenu(dMenu);
+} else {
+    electron.Menu.setApplicationMenu(dMenu);
 }
 
 let toggleFileTasks = isEnabled => {
@@ -115,3 +136,5 @@ app.on('activate', () => {
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) createWindow();
 });
+
+
