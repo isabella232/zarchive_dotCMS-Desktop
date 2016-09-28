@@ -1,4 +1,7 @@
 import {nativeImage} from 'electron';
+import { read,write } from 'fs';
+
+var fs = require('fs');
 
 class CanvasService {
     context: CanvasRenderingContext2D;
@@ -28,7 +31,35 @@ class CanvasService {
         this.original = original;
     }
 
-    getData() {
+    // getFile(){
+    //
+    //     fs.read();
+    //
+    //
+    //     var byteString;
+    //     if (this.image..split(',')[0].indexOf('base64') >= 0)
+    //         byteString = atob(dataURI.split(',')[1]);
+    //     else
+    //         byteString = unescape(dataURI.split(',')[1]);
+    //
+    //     // separate out the mime component
+    //     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    //
+    //     // write the bytes of the string to a typed array
+    //     var ia = new Uint8Array(byteString.length);
+    //     for (var i = 0; i < byteString.length; i++) {
+    //         ia[i] = byteString.charCodeAt(i);
+    //     }
+    // }
+
+    // blobToFile(theBlob: Blob, fileName:string): File {
+    //     var b: any = theBlob;
+    //     b.lastModifiedDate = new Date();
+    //     b.name = fileName;
+    //     return <File>theBlob;
+    // }
+
+    getData() : ImageData {
         return this.context.getImageData(0, 0, this.image.width, this.image.height);
     }
 
@@ -102,7 +133,7 @@ class CanvasService {
         this.transform(callback, 100);
     }
 
-    canvasBuffer(canvas, type, quality?) {
+    canvasBuffer(canvas, type, quality?) : Buffer {
         let types = ['image/png', 'image/jpg', 'image/jpeg']
 
         type = type || 'image/png'
@@ -113,7 +144,7 @@ class CanvasService {
         }
 
         let data = canvas.toDataURL(type, quality)
-        let img = nativeImage.createFromDataURL(data) // electron v0.36+
+        let img = nativeImage.createFromDataURL(data)
         if (/^image\/jpe?g$/.test(type)) {
             return img.toJPEG(Math.floor(quality * 100))
         } else {
