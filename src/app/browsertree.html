@@ -1,11 +1,12 @@
 <div class="page-content">
     <host-selector></host-selector>
+    <breadcrumb></breadcrumb>
     <div class="ContentSideSections Implementation">
         <p-treeTable [value]="lazyFiles" [style]="&#123;'margin-top':'30px'&#125;"
                      (onNodeExpand)="nodeExpand($event)">
             <p-column field="title" header="Name"></p-column>
-            <p-column field="modDate" header="Mod Date"></p-column>
-            <p-column field="type" header="Type"></p-column>
+            <p-column field="modDate" header="Mod Date"[style]="&#123;'width': '100px'&#125;"></p-column>
+            <p-column field="type" header="Type" [style]="&#123;'width': '65px'&#125;"></p-column>
         </p-treeTable>
     </div>
 </div>

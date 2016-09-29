@@ -3,6 +3,8 @@ import {Message, TreeNode} from "primeng/components/common/api";
 import {BrowserTreeService} from "./browserTreeService";
 import {Http} from "@angular/http";
 import {HttpClient} from "./httpService";
+import {BrowserTreeUpdateService} from "./browserTreeUpdateService";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -11,17 +13,23 @@ import {HttpClient} from "./httpService";
     styles: [require('./app.css')],
     providers: [BrowserTreeService,HttpClient]
 })
-export class BrowserTreeTable implements OnInit {
+export class BrowserTreeTable  {
 
     msgs: Message[];
-
     lazyFiles: TreeNode[];
+    subscription: Subscription;
 
-    constructor(private nodeService: BrowserTreeService) { }
+    constructor(private nodeService: BrowserTreeService,
+                private updateService: BrowserTreeUpdateService) {
+        this.subscription = updateService.siteSource$.subscribe(
+            siteName => {
+                // console.log(siteName);
+                this.loadHost(siteName);
+            });
+    }
 
-    ngOnInit() {
-        // this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
-        this.nodeService.getRoot('demo.dotcms.com')
+    loadHost(siteName : string){
+        this.nodeService.getRoot(siteName)
             .then(items => this.lazyFiles = items);
     }
 
@@ -36,7 +44,12 @@ export class BrowserTreeTable implements OnInit {
     }
 
     nodeExpand(event) {
-        console.log(event.node.data.path);
+        let pathName : string = (<string>event.node.data.path);
+        pathName = pathName.slice(0,pathName.length-1);
+        pathName = pathName.slice(pathName.lastIndexOf("/") + 1,pathName.length)
+        console.log(pathName);
+        // let pathName : string = originalPath.slice(originalPath.indexOf("/") + 1,originalPath.length-1);
+        this.updateService.changeFolder(pathName);
         if(event.node) {
             this.nodeService.getFolder('demo.dotcms.com',event.node.data.path)
                 .then(items => this.lazyFiles = items);

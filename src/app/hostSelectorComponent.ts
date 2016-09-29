@@ -4,6 +4,7 @@ import {Response} from "@angular/http";
 
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
+import {BrowserTreeUpdateService} from "./browserTreeUpdateService";
 
 export interface Site {
     hostname: string;
@@ -22,17 +23,23 @@ export class HostSelector {
     filteredHosts: any[];
     host: string;
 
-    constructor(private _httpClient: HttpClient) {
+    constructor(private _httpClient: HttpClient,
+                private updateService: BrowserTreeUpdateService) {
+    }
+
+    siteSelected(event){
+        // console.log("about to switch");
+        this.updateService.changeSite(this.host);
     }
 
     filterHosts(event) {
-        console.log("event query is set to : " + event.query);
+        // console.log("event query is set to : " + event.query);
         this._httpClient.get('http://localhost:8080/api/v1/site/filter/' + event.query + '/archived/false')
             .map((res: Response) => this.extractDataFilter(res))
             .subscribe(
                 data => this.formatResult(data,event),
-                err => this.handleError(err),
-                () => console.log('done')
+                err => this.handleError(err)
+                // () => console.log('done')
                 // () => this.formatResult()
             );
         setTimeout(() => {}, 100)
@@ -41,7 +48,7 @@ export class HostSelector {
     private formatResult(hosts : Site[], event :any = 0) {
         this.filteredHosts = [];
         this.sites = hosts;
-        console.log("format result");
+        // console.log("format result");
         for (let i = 0; i < this.sites.length; i++) {
             let site = this.sites[i].hostname;
             if(event && site.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
@@ -55,19 +62,19 @@ export class HostSelector {
 
     private extractDataDropdown(res: Response): Site[] {
         let obj = JSON.parse(res.text());
-        console.log(obj);
-        console.log(obj.entity.sites);
-        console.log("Number of Hosts is " + obj.entity.sites.length);
-        console.log("Host Name is " + obj.entity.sites[0].hostname);
+        // console.log(obj);
+        // console.log(obj.entity.sites);
+        // console.log("Number of Hosts is " + obj.entity.sites.length);
+        // console.log("Host Name is " + obj.entity.sites[0].hostname);
         return obj.entity.sites;
     }
 
     private extractDataFilter(res: Response): Site[] {
         let obj = JSON.parse(res.text());
-        console.log(obj);
-        console.log(obj.entity);
-        console.log("Number of Hosts is " + obj.entity.result.length);
-        console.log("Host Name is " + obj.entity.result[0].hostname);
+        // console.log(obj);
+        // console.log(obj.entity);
+        // console.log("Number of Hosts is " + obj.entity.result.length);
+        // console.log("Host Name is " + obj.entity.result[0].hostname);
         return obj.entity.result;
     }
 
@@ -91,8 +98,8 @@ export class HostSelector {
             .map((res: Response) => this.extractDataDropdown(res))
             .subscribe(
                 data => this.formatResult(data),
-                err => this.handleError(err),
-                () => console.log('done')
+                err => this.handleError(err)
+                // () => console.log('done')
                 // () => this.formatResult()
             );
         setTimeout(() => {}, 100)

@@ -10,8 +10,12 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import {Gram} from "./gramComponent";
 import {BrowserTreeTable} from "./browserTreeTable";
-import {HostSelector} from "./hostSelector";
-import {HttpClient} from "./httpService";
+import {HostSelector} from "./hostSelectorComponent";
+import {BrowserTreeUpdateService} from "./browserTreeUpdateService";
+import {BreadcrumbModule} from "primeng/components/breadcrumb/breadcrumb";
+import {MenuModule} from "primeng/components/menu/menu";
+import {BreadcrumbComponent} from "./breadcrumbComponet";
+
 
 @NgModule({
     imports: [
@@ -23,7 +27,9 @@ import {HttpClient} from "./httpService";
         SharedModule,
         TreeModule,
         AutoCompleteModule,
-        FormsModule
+        FormsModule,
+        BreadcrumbModule,
+        MenuModule
     ],
     declarations: [
         App,
@@ -31,10 +37,12 @@ import {HttpClient} from "./httpService";
         Settings,
         Gram,
         BrowserTreeTable,
-        HostSelector
+        HostSelector,
+        BreadcrumbComponent
     ],
     providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy}
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: BrowserTreeUpdateService, useClass : BrowserTreeUpdateService}
     ],
     bootstrap: [App]
 })

@@ -48,7 +48,7 @@ export class BrowserTreeService {
                 leaf :leaf
             }
             t.data.modDate = new Date(<string>t.data.modDate).toISOString().split('T')[0];
-            console.log(t);
+            // console.log(t);
             assets[i] = t;
         }
         // console.log(assets);
