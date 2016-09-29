@@ -20,7 +20,9 @@ export class BrowserTreeTable implements OnInit {
     constructor(private nodeService: BrowserTreeService) { }
 
     ngOnInit() {
-        this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
+        // this.nodeService.getLazyFilesystem().then(files => this.lazyFiles = files);
+        this.nodeService.getRoot('demo.dotcms.com')
+            .then(items => this.lazyFiles = items);
     }
 
     nodeSelect(event) {
@@ -34,9 +36,10 @@ export class BrowserTreeTable implements OnInit {
     }
 
     nodeExpand(event) {
+        console.log(event.node.data.path);
         if(event.node) {
-            //in a real application, make a call to a remote url to load children of the current node and add the new nodes as children
-            this.nodeService.getLazyFilesystem().then(nodes => event.node.children = nodes);
+            this.nodeService.getFolder('demo.dotcms.com',event.node.data.path)
+                .then(items => this.lazyFiles = items);
         }
     }
 }
