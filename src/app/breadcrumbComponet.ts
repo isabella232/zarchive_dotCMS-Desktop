@@ -33,7 +33,15 @@ export class BreadcrumbComponent {
     }
 
     onFolderClick(folderName : string){
-        this.pathItems.push({label: folderName,command: (event: Event) => { console.log("NEED TO CHANGE TREE TO " + folderName) }});
+        let uri : string = "";
+        for(let i=1;i < this.pathItems.length;i++){
+            let pi : MenuItem = this.pathItems[i];
+            uri = uri + "/" + pi.label;
+        }
+        uri = uri + "/" + folderName;
+        let newPathItems : MenuItem[] = this.pathItems.slice(0);
+        newPathItems.push({label: folderName,command: (event: Event) => { this.updateService.changeBreadCrumbFolder(uri);this.pathItems=newPathItems }});
+        this.pathItems.push({label: folderName,command: (event: Event) => { this.updateService.changeBreadCrumbFolder(uri);this.pathItems=newPathItems }});
     }
 
 }

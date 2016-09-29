@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Output} from "@angular/core";
 import {HttpClient} from "./httpService";
 import {Response} from "@angular/http";
 
@@ -21,7 +21,7 @@ export interface Site {
 export class HostSelector {
     sites: Site[];
     filteredHosts: any[];
-    host: string;
+    host: string = '';
 
     constructor(private _httpClient: HttpClient,
                 private updateService: BrowserTreeUpdateService) {

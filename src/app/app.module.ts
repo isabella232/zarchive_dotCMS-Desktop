@@ -15,6 +15,7 @@ import {BrowserTreeUpdateService} from "./browserTreeUpdateService";
 import {BreadcrumbModule} from "primeng/components/breadcrumb/breadcrumb";
 import {MenuModule} from "primeng/components/menu/menu";
 import {BreadcrumbComponent} from "./breadcrumbComponet";
+import {DragDropModule} from "primeng/components/dragdrop/dragdrop";
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {BreadcrumbComponent} from "./breadcrumbComponet";
         AutoCompleteModule,
         FormsModule,
         BreadcrumbModule,
-        MenuModule
+        MenuModule,
+        DragDropModule
     ],
     declarations: [
         App,

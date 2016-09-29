@@ -19,4 +19,13 @@ export class BrowserTreeUpdateService {
     changeFolder(folderName: string) {
         this.folderSource.next(folderName);
     }
+
+    // Observable string sources
+    private breadCrumbFolderSource = new Subject<string>();
+    // Observable string streams
+    breadCrumbFolderSource$ = this.breadCrumbFolderSource.asObservable();
+    changeBreadCrumbFolder(uri: string) {
+        this.breadCrumbFolderSource.next(uri);
+    }
+
 }

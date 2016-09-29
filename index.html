@@ -16,5 +16,15 @@
 <script src="build/common.js"></script>
 <script src="build/@angular.js"></script>
 <script src="build/app.js"></script>
+<script>
+    document.ondragover = document.ondrop = (ev) => {
+        ev.preventDefault();
+    }
+
+//    document.body.ondrop = (ev) => {
+//        console.log(ev.dataTransfer.files[0].path);
+//        ev.preventDefault();
+//    }
+</script>
 </body>
 </html>
