@@ -25,13 +25,11 @@ export class HttpClient {
     }
 
     get(url): Observable<Response> {
-        // return Observable.create(observer => {
-            let headers = new Headers();
-            this.createAuthorizationHeader(headers, 'admin@dotcms.com', 'admin');
-            return this.http.get(url, {
-                headers: headers
-            });
-        // });
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers, 'admin@dotcms.com', 'admin');
+        return this.http.get(url, {headers: headers})
+            .debounceTime(400)
+            .distinctUntilChanged();
     }
 
     put(url: String, jsonData: Object) {

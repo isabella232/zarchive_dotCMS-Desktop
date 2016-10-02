@@ -1,6 +1,6 @@
 import {Treeable} from "./treeable.model";
 
-export interface file extends Treeable {
+export class File extends Treeable {
     languageId : number;
     path : string;
     parent : string;

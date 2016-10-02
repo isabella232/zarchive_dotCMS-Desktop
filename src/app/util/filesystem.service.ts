@@ -1,6 +1,17 @@
+import {MessageService} from "./message.service";
+import {Inject} from "@angular/core";
 var fs = require('fs');
 
+@Inject("messageService")
 export class FileSystemService {
+
+    constructor
+    (
+        private messageService: MessageService
+    )
+    {
+        this.messageService = messageService
+    }
 
     isDirectory(localPath : string) {
         let ret : boolean = false;
@@ -15,12 +26,9 @@ export class FileSystemService {
     }
 
     private logFileReadingError(err){
-        let myNotification: Notification;
         if (err) {
             console.log(err);
-            myNotification = new Notification('Error', {
-                body: 'There was an error reading the file or directory; please try again'
-            });
+            this.messageService.displayErrorMessage("There was an error reading the file or directory; please try again");
         }
     }
 

@@ -1,6 +1,6 @@
 import {MenuItem} from "primeng/components/common/api";
 import {Component, Output} from "@angular/core";
-import {SiteBrowserState} from "../site-browser/site-browser.state";
+import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
 import {Subscription} from "rxjs";
 import EventEmitter = NodeJS.EventEmitter;
 

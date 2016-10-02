@@ -4,8 +4,9 @@ import {Response} from "@angular/http";
 
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
-import {SiteBrowserState} from "../site-browser/site-browser.state";
+import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
 import {Site} from "../treeable/shared/site.model";
+import {MessageService} from "../util/message.service";
 
 @Component({
     selector: 'site-selector',
@@ -19,7 +20,8 @@ export class SiteSelector {
     host: string = '';
 
     constructor(private _httpClient: HttpClient,
-                private updateService: SiteBrowserState) {
+                private updateService: SiteBrowserState,
+                private messageService: MessageService) {
     }
 
     siteSelected(event){
@@ -63,12 +65,9 @@ export class SiteSelector {
         // we need use a remote logging infrastructure at some point
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        let myNotification: Notification;
         if (errMsg) {
             console.log(errMsg);
-            myNotification = new Notification('Error', {
-                body: 'There was an error; please try again : ' + errMsg
-            });
+            this.messageService.displayErrorMessage("There was an error; please try again : " + errMsg);
             return Observable.throw(errMsg);
         }
     }

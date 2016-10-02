@@ -1,20 +1,19 @@
 import {Component} from "@angular/core";
 import {Message, TreeNode} from "primeng/components/common/api";
-import {BrowserTreeService} from "../site-browser/site-browser.service";
 import {FileSystemService} from "../util/filesystem.service"
-import {HttpClient} from "../util/http.service";
-import {SiteBrowserState} from "../site-browser/site-browser.state";
+import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
 import {Subscription} from "rxjs";
+import {SiteTreetableService} from "./site-treetable.service";
+import {MessageService} from "../util/message.service";
 
 let fs = require('fs');
 
 @Component({
-    selector: 'treetable',
+    selector: 'site-treetable',
     template: require('./site-treetable.html'),
-    styles: [require('./../app.css')],
-    providers: [BrowserTreeService,HttpClient,FileSystemService]
+    styles: [require('./../app.css')]
 })
-export class TreeTable  {
+export class SiteTreeTable  {
 
     dropzoneStylesVisible : boolean = true;
     siteName : string;
@@ -23,9 +22,10 @@ export class TreeTable  {
     selectedNode : TreeNode;
     subscription: Subscription;
 
-    constructor(private nodeService: BrowserTreeService,
-                private updateService: SiteBrowserState,
-                private fsService : FileSystemService) {
+    constructor(private updateService: SiteBrowserState,
+                private fsService : FileSystemService,
+                private siteTreetableService : SiteTreetableService,
+                private messageService : MessageService) {
         this.subscription = updateService.siteSource$.subscribe(
             siteName => {
                 this.loadHost(siteName);
@@ -56,20 +56,24 @@ export class TreeTable  {
         }
         console.log("Path : " + pathToUploadTo);
         console.log("Is Directory : " + fs.statSync(files[0].path).isDirectory());
+        this.messageService.displayInfoMessage("Path is " + pathToUploadTo);
+
         // console.log("Is Directory : " + this.fsService.isDirectory(files[0].path));
 
         return false;
     }
 
     loadHost(siteName : string){
-        this.nodeService.getRoot(siteName)
-            .then(items => this.lazyFiles = items)
-            .then(items => this.siteName = siteName);
+        this.siteName = siteName;
+        this.siteTreetableService.getAssetsUnderSite(siteName)
+            .subscribe(items => this.lazyFiles = items);
+        setTimeout(() => {}, 100)
     }
 
     loadFolder (uri : string){
-        this.nodeService.getFolder(this.siteName,uri)
-            .then(items => this.lazyFiles = items);
+        this.siteTreetableService.getAssetsUnderFolder(this.siteName,uri)
+            .subscribe(items => this.lazyFiles = items);
+        setTimeout(() => {}, 100)
     }
 
     nodeSelect(event) {
@@ -83,13 +87,15 @@ export class TreeTable  {
     }
 
     nodeExpand(event) {
+        console.log("loading folder");
         let pathName : string = (<string>event.node.data.path);
         pathName = pathName.slice(0,pathName.length-1);
         pathName = pathName.slice(pathName.lastIndexOf("/") + 1,pathName.length)
         this.updateService.changeFolder(pathName);
         if(event.node) {
-            this.nodeService.getFolder(this.siteName,event.node.data.path)
-                .then(items => this.lazyFiles = items);
+            this.siteTreetableService.getAssetsUnderFolder(this.siteName,event.node.data.path)
+                .subscribe(items => this.lazyFiles = items);
         }
+        setTimeout(() => {}, 100)
     }
 }

@@ -1,4 +1,4 @@
-export interface Treeable{
+export class Treeable{
     inode : string;
     identifier : string;
     type : string;
@@ -7,4 +7,9 @@ export interface Treeable{
     live : boolean;
     working : boolean;
     archived : boolean;
+    title: string;
+
+    modDateFormated(){
+        this.modDate.toISOString().split('T')[0];
+    }
 }

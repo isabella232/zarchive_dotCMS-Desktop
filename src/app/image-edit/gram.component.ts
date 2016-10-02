@@ -9,6 +9,7 @@ import {writeFile} from 'fs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
+import {MessageService} from "../util/message.service";
 
 var fs = require('fs');
 
@@ -22,7 +23,7 @@ let {dialog} = remote;
     selector: 'gram',
     template: require('./gram.html'),
     styles: [require('./../app.css')],
-    providers: [CanvasService, HttpClient]
+    providers: [CanvasService, HttpClient, MessageService]
 })
 @Injectable()
 export class Gram {
@@ -40,7 +41,8 @@ export class Gram {
 
     constructor(private _cd: ChangeDetectorRef,
                 private _cs: CanvasService,
-                private _httpClient: HttpClient) {
+                private _httpClient: HttpClient,
+                private messageService: MessageService) {
         ipcRenderer.on('open-file', this.open.bind(this));
         ipcRenderer.on('save-file', this.save.bind(this));
         this._httpClient.progress$.subscribe(
@@ -132,14 +134,14 @@ export class Gram {
             type: "application/jpg"
         };
 
-        let buff : Uint8Array = this._cs.canvasBuffer(this.canvas.nativeElement, 'image/jpg');
-        let blob = new Blob([buff], { type: 'application/jpg' });
+        let buff: Uint8Array = this._cs.canvasBuffer(this.canvas.nativeElement, 'image/jpg');
+        let blob = new Blob([buff], {type: 'application/jpg'});
 
         var b: any = blob;
         b.lastModifiedDate = new Date();
         b.name = this._cs.image.src;
 
-        let files : File[] = [<File>b];
+        let files: File[] = [<File>b];
 
         // this._cs.getData().data.buffer
         //
@@ -167,16 +169,11 @@ export class Gram {
 
 
     saveFileCallback(fileName, err) {
-        let myNotification: Notification;
         if (err) {
             console.log(err);
-            myNotification = new Notification('Error', {
-                body: 'There was an error; please try again'
-            });
+            this.messageService.displayErrorMessage("There was an error; please try again");
         } else {
-            myNotification = new Notification('Image Saved', {
-                body: fileName
-            });
+            this.messageService.displayInfoMessage("Image Saved : " + fileName);
         }
     }
 

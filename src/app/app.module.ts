@@ -7,15 +7,16 @@ import {Settings} from "./settings/settings.component";
 import {HttpModule, JsonpModule} from '@angular/http';
 import {TreeTableModule, SharedModule, TreeModule, AutoCompleteModule} from 'primeng/primeng';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import { FormsModule }   from '@angular/forms';
+import {FormsModule}   from '@angular/forms';
 import {Gram} from "./image-edit/gram.component";
 import {SiteBrowser} from "./site-browser/site-browser.component";
 import {SiteSelector} from "./site-selector/site-selector.component";
-import {SiteBrowserState} from "./site-browser/site-browser.state";
 import {BreadcrumbModule} from "primeng/components/breadcrumb/breadcrumb";
 import {MenuModule} from "primeng/components/menu/menu";
 import {BreadcrumbComponent} from "./breadcrumb/breadcrumb.componet";
 import {DragDropModule} from "primeng/components/dragdrop/dragdrop";
+import {SiteTreeTable} from "./site-treetable/site-treetable.component";
+import {AppConfig, DOT_CONFIG, APP_CONFIG} from "./app.config";
 
 
 @NgModule({
@@ -40,11 +41,12 @@ import {DragDropModule} from "primeng/components/dragdrop/dragdrop";
         Gram,
         SiteBrowser,
         SiteSelector,
+        SiteTreeTable,
         BreadcrumbComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-        {provide: SiteBrowserState, useClass : SiteBrowserState}
+        {provide: APP_CONFIG, useValue: DOT_CONFIG}
     ],
     bootstrap: [App]
 })

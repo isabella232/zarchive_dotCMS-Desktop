@@ -1,6 +1,6 @@
 import {Treeable} from "./treeable.model";
 
-export interface Folder extends Treeable{
+export class Folder extends Treeable{
     showOnMenu : boolean;
     sortOrder : number;
     hostId : string;
