@@ -1,20 +1,20 @@
 import {MenuItem} from "primeng/components/common/api";
 import {Component, Output} from "@angular/core";
-import {BrowserTreeUpdateService} from "./browserTreeUpdateService";
+import {SiteBrowserState} from "../site-browser/site-browser.state";
 import {Subscription} from "rxjs";
 import EventEmitter = NodeJS.EventEmitter;
 
 @Component({
     selector: 'breadcrumb',
     template: require('./breadcrumb.html'),
-    styles: [require('./app.css')]
+    styles: [require('./../app.css')]
 })
 export class BreadcrumbComponent {
 
     private pathItems: MenuItem[];
     subscription: Subscription;
 
-    constructor(private updateService: BrowserTreeUpdateService) {
+    constructor(private updateService: SiteBrowserState) {
         this.subscription = updateService.siteSource$.subscribe(
             siteName => {
                 // console.log(siteName);

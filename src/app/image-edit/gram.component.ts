@@ -1,9 +1,9 @@
 import {readFile} from "fs";
-let filters = require('./../assets/data/filters.json');
+let filters = require('./../../assets/data/filters.json');
 
 import {ViewChild, Component, ChangeDetectorRef, ElementRef, Injectable} from '@angular/core';
-import {CanvasService} from './canvasService';
-import {HttpClient} from './httpService';
+import {CanvasService} from './canvas.service';
+import {HttpClient} from '../util/http.service';
 import {remote, ipcRenderer} from 'electron';
 import {writeFile} from 'fs';
 import 'rxjs/add/operator/map';
@@ -21,7 +21,7 @@ let {dialog} = remote;
 @Component({
     selector: 'gram',
     template: require('./gram.html'),
-    styles: [require('./app.css')],
+    styles: [require('./../app.css')],
     providers: [CanvasService, HttpClient]
 })
 @Injectable()

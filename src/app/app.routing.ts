@@ -1,9 +1,9 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {Settings} from "./settingsComponent";
-import {Gram} from "./gramComponent";
-import {BrowserTreeTable} from "./browserTreeTable";
+import {Settings} from "./settings/settings.component";
+import {Gram} from "./image-edit/gram.component";
+import {SiteBrowser} from "./site-browser/site-browser.component";
 
 const appRoutes: Routes = [
     {
@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     },
     {
         path: '',
-        component:BrowserTreeTable
+        component:SiteBrowser
     }
 ];
 

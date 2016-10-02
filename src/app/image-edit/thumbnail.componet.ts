@@ -1,7 +1,7 @@
-let filters = require('./../assets/data/filters.json');
+let filters = require('./../../assets/data/filters.json');
 
 import { ViewChild, Input, Component, ElementRef } from '@angular/core';
-import { CanvasService } from './canvasService';
+import { CanvasService } from './canvas.service';
 import { remote } from 'electron';
 
 

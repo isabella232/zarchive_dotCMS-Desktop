@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 
 @Injectable()
-export class BrowserTreeUpdateService {
+export class SiteBrowserState {
 
     // Observable string sources
     private siteSource = new Subject<string>();

@@ -1,7 +1,7 @@
 import {Inject} from "@angular/core";
 import {Http, Response} from "@angular/http";
 import {TreeNode} from "primeng/components/common/api";
-import {HttpClient} from "./httpService";
+import {HttpClient} from "../util/http.service";
 import {Observable} from "rxjs";
 
 @Inject("http")
@@ -51,7 +51,6 @@ export class BrowserTreeService {
             // console.log(t);
             assets[i] = t;
         }
-        // console.log(assets);
         return assets;
     }
 
@@ -67,33 +66,5 @@ export class BrowserTreeService {
             });
             return Observable.throw(errMsg);
         }
-    }
-
-    getFiles() {
-        return this.http.get('src/assets/data/files.json')
-            .toPromise()
-            .then(res => <TreeNode[]> res.json().data)
-            .then(data => { return data; });
-    }
-
-    getLazyFiles() {
-        return this.http.get('src/assets/data/files-lazy.json')
-            .toPromise()
-            .then(res => <TreeNode[]> res.json().data)
-            .then(data => { console.log(data);return data; });
-    }
-
-    getFilesystem() {
-        return this.http.get('src/assets/data/filesystem.json')
-            .toPromise()
-            .then(res => <TreeNode[]> res.json().data)
-            .then(data => { return data; });
-    }
-
-    getLazyFilesystem() {
-        return this.http.get('src/assets/data/filesystem-lazy.json')
-            .toPromise()
-            .then(res => <TreeNode[]> res.json().data)
-            .then(data => { console.log(data);return data; });
     }
 }

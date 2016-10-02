@@ -1,20 +1,20 @@
 import {Component} from "@angular/core";
 import {Message, TreeNode} from "primeng/components/common/api";
-import {BrowserTreeService} from "./browserTreeService";
-import {FileSystemService} from "./util/fileSystemService"
-import {HttpClient} from "./httpService";
-import {BrowserTreeUpdateService} from "./browserTreeUpdateService";
+import {BrowserTreeService} from "./site-browser.service";
+import {FileSystemService} from "../util/filesystem.service"
+import {HttpClient} from "../util/http.service";
+import {SiteBrowserState} from "./site-browser.state";
 import {Subscription} from "rxjs";
 
 let fs = require('fs');
 
 @Component({
     selector: 'browser-tree',
-    template: require('./browsertree.html'),
-    styles: [require('./app.css')],
+    template: require('./sitebrowser.html'),
+    styles: [require('./../app.css')],
     providers: [BrowserTreeService,HttpClient,FileSystemService]
 })
-export class BrowserTreeTable  {
+export class SiteBrowser  {
 
     dropzoneStylesVisible : boolean = true;
     siteName : string;
@@ -24,7 +24,7 @@ export class BrowserTreeTable  {
     subscription: Subscription;
 
     constructor(private nodeService: BrowserTreeService,
-                private updateService: BrowserTreeUpdateService,
+                private updateService: SiteBrowserState,
                 private fsService : FileSystemService) {
         this.subscription = updateService.siteSource$.subscribe(
             siteName => {

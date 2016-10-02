@@ -6,7 +6,7 @@ var fs = require('fs');
 @Component({
     selector: 'settings',
     template: require('./settings.html'),
-    styles: [ require('./app.css') ],
+    styles: [ require('./../app.css') ],
 })
 
 export class Settings {

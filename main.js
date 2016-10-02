@@ -6,7 +6,7 @@ const debugMenu = require('debug-menu');
 // Module to control application life.
 const app = electron.app;
 const Menu = electron.Menu;
-let menuTemplate = require('./menuTemplate');
+let menuTemplate = require('./menu-template');
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
