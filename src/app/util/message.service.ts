@@ -4,7 +4,7 @@ declare class Notification {
     constructor(title: string, options?: Object)
 }
 
-export class MessageService {
+export class NotificationService {
 
     iconPath : string;
 

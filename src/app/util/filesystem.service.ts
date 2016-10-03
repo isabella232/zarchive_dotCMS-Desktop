@@ -1,4 +1,4 @@
-import {MessageService} from "./message.service";
+import {NotificationService} from "./message.service";
 import {Inject} from "@angular/core";
 var fs = require('fs');
 
@@ -7,7 +7,7 @@ export class FileSystemService {
 
     constructor
     (
-        private messageService: MessageService
+        private messageService: NotificationService
     )
     {
         this.messageService = messageService

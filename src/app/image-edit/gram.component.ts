@@ -9,7 +9,7 @@ import {writeFile} from 'fs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
-import {MessageService} from "../util/message.service";
+import {NotificationService} from "../util/message.service";
 
 var fs = require('fs');
 
@@ -23,10 +23,10 @@ let {dialog} = remote;
     selector: 'gram',
     template: require('./gram.html'),
     styles: [require('./../app.css')],
-    providers: [CanvasService, HttpClient, MessageService]
+    providers: [CanvasService, HttpClient, NotificationService]
 })
 @Injectable()
-export class Gram {
+export class GramComponent {
     @ViewChild('canvas') canvas: ElementRef;
 
     r: Object[];
@@ -42,7 +42,7 @@ export class Gram {
     constructor(private _cd: ChangeDetectorRef,
                 private _cs: CanvasService,
                 private _httpClient: HttpClient,
-                private messageService: MessageService) {
+                private messageService: NotificationService) {
         ipcRenderer.on('open-file', this.open.bind(this));
         ipcRenderer.on('save-file', this.save.bind(this));
         this._httpClient.progress$.subscribe(

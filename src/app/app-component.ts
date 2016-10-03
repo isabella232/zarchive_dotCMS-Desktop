@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     template: require('./app.html'),
     styles: [ require('./app.css') ]
 })
-export class App {
+export class AppComponent {
 
     settingsOpened: boolean = false;
     gramOpened: boolean = false;

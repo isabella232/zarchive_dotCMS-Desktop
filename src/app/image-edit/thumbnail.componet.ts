@@ -15,7 +15,7 @@ import { remote } from 'electron';
     }
   `]
 })
-export class Thumbnail {
+export class ThumbnailComponent {
     @Input() filter: string = '';
     @Input() image: HTMLImageElement;
     @ViewChild('childCanvas') childCanvas: ElementRef;

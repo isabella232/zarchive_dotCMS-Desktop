@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {Treeable} from "../../treeable/shared/treeable.model";
 import {Folder} from "../../treeable/shared/folder.model";
 import {File} from "../../treeable/shared/file.model";
-import {MessageService} from "../../util/message.service";
+import {NotificationService} from "../../util/message.service";
 
 @Inject("httpClient")
 export class SiteBrowserService {
@@ -13,7 +13,7 @@ export class SiteBrowserService {
     constructor
     (
         private httpClient: HttpClient,
-        private messageService: MessageService
+        private notificationService: NotificationService
     )
     {
         this.httpClient = httpClient;
@@ -55,7 +55,7 @@ export class SiteBrowserService {
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         if (errMsg) {
             console.log(errMsg);
-            this.messageService.displayErrorMessage("There was an error; please try again : " + errMsg)
+            this.notificationService.displayErrorMessage("There was an error; please try again : " + errMsg)
             return Observable.throw(errMsg);
         }
     }

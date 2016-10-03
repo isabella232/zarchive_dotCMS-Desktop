@@ -4,9 +4,10 @@ import {FileSystemService} from "../util/filesystem.service";
 import {SiteBrowserState} from "./shared/site-browser.state";
 import {SiteBrowserService} from "./shared/site-browser.service";
 import {HttpClient} from "../util/http.service";
-import {MessageService} from "../util/message.service";
+import {NotificationService} from "../util/message.service";
 import {Logger} from "angular2-logger/core";
 import {LoggerService} from "../util/logger.service";
+import {SiteSelectorService} from "../site-selector/site-selector.service";
 
 @Component({
     selector: 'browser-tree',
@@ -18,10 +19,11 @@ import {LoggerService} from "../util/logger.service";
         SiteTreetableService,
         SiteBrowserService,
         HttpClient,
-        MessageService,
-        LoggerService
+        NotificationService,
+        LoggerService,
+        SiteSelectorService
     ]
 })
-export class SiteBrowser  {
+export class SiteBrowserComponent  {
 
 }

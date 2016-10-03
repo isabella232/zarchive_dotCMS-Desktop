@@ -9,7 +9,7 @@ var fs = require('fs');
     styles: [ require('./../app.css') ],
 })
 
-export class Settings {
+export class SettingsComponent {
 
     backToMain() {
         let mainHTML = 'file://' + fs.realpathSync('.') + '/src/app/app.html';

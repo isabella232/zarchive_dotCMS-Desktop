@@ -1,22 +1,22 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {Settings} from "./settings/settings.component";
-import {Gram} from "./image-edit/gram.component";
-import {SiteBrowser} from "./site-browser/site-browser.component";
+import {SettingsComponent} from "./settings/settings.component";
+import {GramComponent} from "./image-edit/gram.component";
+import {SiteBrowserComponent} from "./site-browser/site-browser.component";
 
 const appRoutes: Routes = [
     {
         path: 'gram',
-        component: Gram
+        component: GramComponent
     },
     {
         path: 'settings',
-        component: Settings
+        component: SettingsComponent
     },
     {
         path: '',
-        component:SiteBrowser
+        component:SiteBrowserComponent
     }
 ];
 

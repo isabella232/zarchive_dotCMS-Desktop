@@ -4,7 +4,7 @@ import {FileSystemService} from "../util/filesystem.service"
 import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
 import {Subscription} from "rxjs";
 import {SiteTreetableService} from "./site-treetable.service";
-import {MessageService} from "../util/message.service";
+import {NotificationService} from "../util/message.service";
 import {LoggerService} from "../util/logger.service";
 
 let fs = require('fs');
@@ -14,8 +14,9 @@ let fs = require('fs');
     template: require('./site-treetable.html'),
     styles: [require('./../app.css')]
 })
+
 @Inject('log')
-export class SiteTreeTable  {
+export class SiteTreeTableComponent  {
 
     dropzoneStylesVisible : boolean = true;
     siteName : string;
@@ -28,7 +29,7 @@ export class SiteTreeTable  {
                 private fsService : FileSystemService,
                 private siteTreetableService : SiteTreetableService,
                 private log : LoggerService,
-                private messageService : MessageService) {
+                private messageService : NotificationService) {
         this.subscription = updateService.siteSource$.subscribe(
             siteName => {
                 this.loadHost(siteName);
