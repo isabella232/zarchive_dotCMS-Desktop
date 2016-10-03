@@ -1,5 +1,5 @@
 import {MenuItem} from "primeng/components/common/api";
-import {Component, Output} from "@angular/core";
+import {Component, Output, Inject} from "@angular/core";
 import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
 import {Subscription} from "rxjs";
 import EventEmitter = NodeJS.EventEmitter;
@@ -9,39 +9,82 @@ import EventEmitter = NodeJS.EventEmitter;
     template: require('./breadcrumb.html'),
     styles: [require('./../app.css')]
 })
+@Inject('updateService')
 export class BreadcrumbComponent {
 
     private pathItems: MenuItem[];
     subscription: Subscription;
 
     constructor(private updateService: SiteBrowserState) {
-        this.subscription = updateService.siteSource$.subscribe(
+        this.buildMenuItemsFromURI(this.updateService.getURI());
+        this.subscription = updateService.currentSite.subscribe(
             siteName => {
-                // console.log(siteName);
                 this.onSiteChange(siteName);
             });
-        this.subscription = updateService.folderSource$.subscribe(
+        this.subscription = updateService.currentFolder.subscribe(
             folderName => {
-                // console.log(siteName);
                 this.onFolderClick(folderName);
+            });
+        this.subscription = updateService.currentURI.subscribe(
+            uri => {
+                this.buildMenuItemsFromURI(uri);
             });
     }
 
     onSiteChange(siteName: string) {
         this.pathItems = [];
-        this.pathItems.push({label: siteName,command: (event: Event) => { this.updateService.changeSite(siteName) }});
+        this.addSiteItem(siteName);
     }
 
-    onFolderClick(folderName : string){
-        let uri : string = "";
-        for(let i=1;i < this.pathItems.length;i++){
-            let pi : MenuItem = this.pathItems[i];
+    onFolderClick(folderName: string) {
+        if (!folderName) {
+            return
+        }
+        let uri : string = this.getCurrentURI() + "/" + folderName;
+        this.addFolderItem(folderName);
+    }
+
+    private getCurrentURI() : string{
+        let uri: string = "";
+        for (let i = 1; i < this.pathItems.length; i++) {
+            let pi: MenuItem = this.pathItems[i];
             uri = uri + "/" + pi.label;
         }
-        uri = uri + "/" + folderName;
-        let newPathItems : MenuItem[] = this.pathItems.slice(0);
-        newPathItems.push({label: folderName,command: (event: Event) => { this.updateService.changeBreadCrumbFolder(uri);this.pathItems=newPathItems }});
-        this.pathItems.push({label: folderName,command: (event: Event) => { this.updateService.changeBreadCrumbFolder(uri);this.pathItems=newPathItems }});
+        return uri;
+    }
+
+    private addSiteItem(siteName : string){
+        this.pathItems.push({
+            label: siteName, command: (event: Event) => {
+                this.updateService.changeSite(siteName);
+                this.updateService.changeURI(null);
+                this.updateService.changeFolder(null);
+            }
+        });
+    }
+
+    private addFolderItem(folderName : string){
+        let currentURI : string = this.getCurrentURI();
+        this.pathItems.push({
+            label: folderName, command: (event: Event) => {
+                this.updateService.changeURI(currentURI + "/" + folderName);
+            }
+        });
+    }
+
+    private buildMenuItemsFromURI(uri : string) {
+        this.pathItems = [];
+        let siteName: string = this.updateService.getSelectedSite();
+        if (!siteName) {
+            return
+        }
+        this.addSiteItem(siteName);
+        if (uri) {
+            let folders: string[] = uri.split("/");
+            for (let i = 0; i < folders.length; i++) {
+                this.onFolderClick(folders[i]);
+            }
+        }
     }
 
 }

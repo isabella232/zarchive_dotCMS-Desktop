@@ -18,6 +18,7 @@ import {DragDropModule} from "primeng/components/dragdrop/dragdrop";
 import {SiteTreeTableComponent} from "./site-treetable/site-treetable.component";
 import {DOT_CONFIG, APP_CONFIG} from "./app.config";
 import {Logger, LOG_LOGGER_PROVIDERS, Options as LoggerOptions, Level as LoggerLevel} from "angular2-logger/core";
+import {SiteBrowserState} from "./site-browser/shared/site-browser.state";
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {Logger, LOG_LOGGER_PROVIDERS, Options as LoggerOptions, Level as LoggerL
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: APP_CONFIG, useValue: DOT_CONFIG},
+        {provide: SiteBrowserState, useClass: SiteBrowserState},
         {provide: LoggerOptions, useValue: { level: LoggerLevel.INFO } },Logger
     ],
     bootstrap: [AppComponent]

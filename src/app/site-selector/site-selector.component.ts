@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Inject} from "@angular/core";
 import {HttpClient} from "../util/http.service";
 import {Response} from "@angular/http";
 
@@ -9,6 +9,7 @@ import {Site} from "../treeable/shared/site.model";
 import {NotificationService} from "../util/message.service";
 import {SiteSelectorService} from "./site-selector.service";
 
+@Inject('updateService')
 @Component({
     selector: 'site-selector',
     template: require('./site-selector.html'),
@@ -20,7 +21,6 @@ export class SiteSelectorComponent {
     sites: Site[];
     filteredHosts: any[];
     host: string = '';
-    subscription: Subscription;
 
     constructor(
         private _httpClient: HttpClient,
@@ -28,7 +28,9 @@ export class SiteSelectorComponent {
         private messageService: NotificationService,
         private siteSelectorService : SiteSelectorService
     )
-    {}
+    {
+        this.host = updateService.getSelectedSite();
+    }
 
     siteSelected(event){
         this.updateService.changeSite(this.host);

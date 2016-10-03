@@ -14,7 +14,6 @@ import {SiteSelectorService} from "../site-selector/site-selector.service";
     template: require('./sitebrowser.html'),
     styles: [require('./../app.css')],
     providers: [
-        SiteBrowserState,
         FileSystemService,
         SiteTreetableService,
         SiteBrowserService,

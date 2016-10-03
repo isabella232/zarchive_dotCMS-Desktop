@@ -1,31 +1,40 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from "rxjs";
+import {MenuItem} from "primeng/components/common/api";
 
 @Injectable()
 export class SiteBrowserState {
 
-    // Observable string sources
-    private siteSource = new Subject<string>();
-    // Observable string streams
-    siteSource$ = this.siteSource.asObservable();
+    private currentSiteSubject : BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    private currentFolderSubject : BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    private currentURISubject : BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
+    currentSite = this.currentSiteSubject.asObservable();
+    currentFolder = this.currentFolderSubject.asObservable();
+    currentURI = this.currentURISubject.asObservable();
+
     changeSite(siteName: string) {
-        this.siteSource.next(siteName);
+        this.currentSiteSubject.next(siteName);
     }
 
-    // Observable string sources
-    private folderSource = new Subject<string>();
-    // Observable string streams
-    folderSource$ = this.folderSource.asObservable();
+    getSelectedSite() : string {
+        return <string>this.currentSiteSubject.getValue();
+    }
+
     changeFolder(folderName: string) {
-        this.folderSource.next(folderName);
+        this.currentFolderSubject.next(folderName);
     }
 
-    // Observable string sources
-    private breadCrumbFolderSource = new Subject<string>();
-    // Observable string streams
-    breadCrumbFolderSource$ = this.breadCrumbFolderSource.asObservable();
-    changeBreadCrumbFolder(uri: string) {
-        this.breadCrumbFolderSource.next(uri);
+    getSelectedFolder() : string {
+        return <string>this.currentFolderSubject.getValue();
+    }
+
+    changeURI(uri: string) {
+        this.currentURISubject.next(uri);
+    }
+    getURI() : string {
+        return <string>this.currentURISubject.getValue();
     }
 
 }

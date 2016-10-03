@@ -16,45 +16,50 @@ let fs = require('fs');
 })
 
 @Inject('log')
-export class SiteTreeTableComponent  {
+@Inject('updateService')
+export class SiteTreeTableComponent {
 
-    dropzoneStylesVisible : boolean = true;
-    siteName : string;
+    dropzoneStylesVisible: boolean = true;
+    siteName: string;
     msgs: Message[];
     lazyFiles: TreeNode[];
-    selectedNode : TreeNode;
+    selectedNode: TreeNode;
     subscription: Subscription;
 
     constructor(private updateService: SiteBrowserState,
-                private fsService : FileSystemService,
-                private siteTreetableService : SiteTreetableService,
-                private log : LoggerService,
-                private messageService : NotificationService) {
-        this.subscription = updateService.siteSource$.subscribe(
-            siteName => {
-                this.loadHost(siteName);
+                private fsService: FileSystemService,
+                private siteTreetableService: SiteTreetableService,
+                private log: LoggerService,
+                private messageService: NotificationService) {
+
+        this.siteName = updateService.getSelectedSite();
+        this.subscription = updateService.currentSite
+            .subscribe(siteName => {
+                if (siteName){this.loadHost(siteName)}
             });
-        this.subscription = updateService.breadCrumbFolderSource$.subscribe(
-            uri => {
-                this.loadFolder(uri);
+        this.subscription = updateService.currentURI
+            .subscribe(uri => {
+                if(uri){this.loadFolder(uri);}
             });
+        setTimeout(() => {
+        }, 100)
     }
 
-    handleDragOver(e){
-        this.dropzoneStylesVisible=true;
+    handleDragOver(e) {
+        this.dropzoneStylesVisible = true;
     }
 
     handleDrop(e) {
         e.preventDefault();
-        let pathToUploadTo : string;
+        let pathToUploadTo: string;
         var files: File = e.dataTransfer.files;
-        let folderTitle :string = e.path[0].innerText;
+        let folderTitle: string = e.path[0].innerText;
         console.log(files);
 
-        for(let i=0;i<this.lazyFiles.length;i++){
-            let node : TreeNode = this.lazyFiles[i];
-            if(node.data.title==folderTitle && node.data.type=="folder"){
-                pathToUploadTo=node.data.path;
+        for (let i = 0; i < this.lazyFiles.length; i++) {
+            let node: TreeNode = this.lazyFiles[i];
+            if (node.data.title == folderTitle && node.data.type == "folder") {
+                pathToUploadTo = node.data.path;
                 break;
             }
         }
@@ -68,17 +73,19 @@ export class SiteTreeTableComponent  {
         return false;
     }
 
-    loadHost(siteName : string){
+    loadHost(siteName: string) {
         this.siteName = siteName;
         this.siteTreetableService.getAssetsUnderSite(siteName)
             .subscribe(items => this.lazyFiles = items);
-        setTimeout(() => {}, 100)
+        setTimeout(() => {
+        }, 100)
     }
 
-    loadFolder (uri : string){
-        this.siteTreetableService.getAssetsUnderFolder(this.siteName,uri)
+    loadFolder(uri: string) {
+        this.siteTreetableService.getAssetsUnderFolder(this.siteName, uri)
             .subscribe(items => this.lazyFiles = items);
-        setTimeout(() => {}, 100)
+        setTimeout(() => {
+        }, 100)
     }
 
     nodeSelect(event) {
@@ -92,15 +99,15 @@ export class SiteTreeTableComponent  {
     }
 
     nodeExpand(event) {
-        console.log("loading folder");
-        let pathName : string = (<string>event.node.data.path);
-        pathName = pathName.slice(0,pathName.length-1);
-        pathName = pathName.slice(pathName.lastIndexOf("/") + 1,pathName.length)
+        let pathName: string = (<string>event.node.data.path);
+        pathName = pathName.slice(0, pathName.length - 1);
+        pathName = pathName.slice(pathName.lastIndexOf("/") + 1, pathName.length)
         this.updateService.changeFolder(pathName);
-        if(event.node) {
-            this.siteTreetableService.getAssetsUnderFolder(this.siteName,event.node.data.path)
+        if (event.node) {
+            this.siteTreetableService.getAssetsUnderFolder(this.siteName, event.node.data.path)
                 .subscribe(items => this.lazyFiles = items);
         }
-        setTimeout(() => {}, 100)
+        setTimeout(() => {
+        }, 100)
     }
 }

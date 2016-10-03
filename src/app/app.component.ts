@@ -1,6 +1,6 @@
 let filters = require('./../assets/data/filters.json');
 
-import { Component} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,28 +15,35 @@ export class AppComponent {
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private ngZone : NgZone
     )
-    {
-        //router.navigate(['/gram']);
-    }
+    {}
 
     openSettings() {
         if(this.settingsOpened){
-            this.router.navigate(['']);
-            this.settingsOpened=false;
+            this.ngZone.run(() => {
+                this.router.navigate(['']);
+                this.settingsOpened = false;
+            });
         }else {
-            this.router.navigate(['/settings']);
-            this.settingsOpened=true;
+            this.ngZone.run(() => {
+                this.router.navigate(['/settings']);
+                this.settingsOpened = true;
+            });
         }
     }
     openGram() {
         if(this.gramOpened){
-            this.router.navigate(['']);
-            this.gramOpened=false;
+            this.ngZone.run(() => {
+                this.router.navigate(['']);
+                this.gramOpened = false;
+            });
         }else {
-            this.router.navigate(['/gram']);
-            this.gramOpened=true;
+            this.ngZone.run(() => {
+                this.router.navigate(['/gram']);
+                this.gramOpened = true;
+            });
         }
     }
 
