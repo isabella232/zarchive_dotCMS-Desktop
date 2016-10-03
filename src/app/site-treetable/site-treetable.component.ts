@@ -1,10 +1,11 @@
-import {Component} from "@angular/core";
+import {Component, Inject} from "@angular/core";
 import {Message, TreeNode} from "primeng/components/common/api";
 import {FileSystemService} from "../util/filesystem.service"
 import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
 import {Subscription} from "rxjs";
 import {SiteTreetableService} from "./site-treetable.service";
 import {MessageService} from "../util/message.service";
+import {LoggerService} from "../util/logger.service";
 
 let fs = require('fs');
 
@@ -13,6 +14,7 @@ let fs = require('fs');
     template: require('./site-treetable.html'),
     styles: [require('./../app.css')]
 })
+@Inject('log')
 export class SiteTreeTable  {
 
     dropzoneStylesVisible : boolean = true;
@@ -25,6 +27,7 @@ export class SiteTreeTable  {
     constructor(private updateService: SiteBrowserState,
                 private fsService : FileSystemService,
                 private siteTreetableService : SiteTreetableService,
+                private log : LoggerService,
                 private messageService : MessageService) {
         this.subscription = updateService.siteSource$.subscribe(
             siteName => {
@@ -54,9 +57,10 @@ export class SiteTreeTable  {
                 break;
             }
         }
-        console.log("Path : " + pathToUploadTo);
+        this.log.debug("Path : " + pathToUploadTo);
         console.log("Is Directory : " + fs.statSync(files[0].path).isDirectory());
         this.messageService.displayInfoMessage("Path is " + pathToUploadTo);
+
 
         // console.log("Is Directory : " + this.fsService.isDirectory(files[0].path));
 

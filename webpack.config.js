@@ -13,7 +13,8 @@ module.exports = {
       'zone.js'
     ],
     'common': ['es6-shim'],
-    'app': './src/app/main.ts'
+    'app': './src/app/main.ts',
+    'vendor': './src/vendor.ts'
   },
 
   output: {
@@ -24,6 +25,10 @@ module.exports = {
     chunkFilename: '[id].chunk.js'
   },
 
+  htmlLoader: {
+    minimize: false // workaround for ng2
+  },
+
   resolve: {
     extensions: ['','.ts','.js','.json', '.css', '.html']
   },
@@ -32,8 +37,7 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'ts',
-        exclude: [ /node_modules/, /releases/ ]
+        loader: 'ts'
       },
       {
         test: /\.json$/,
@@ -49,6 +53,7 @@ module.exports = {
       }
     ]
   },
+
 
   plugins: [
     new CommonsChunkPlugin({ names: ['@angular', 'common'], minChunks: Infinity })

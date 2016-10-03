@@ -16,7 +16,9 @@ import {MenuModule} from "primeng/components/menu/menu";
 import {BreadcrumbComponent} from "./breadcrumb/breadcrumb.componet";
 import {DragDropModule} from "primeng/components/dragdrop/dragdrop";
 import {SiteTreeTable} from "./site-treetable/site-treetable.component";
-import {AppConfig, DOT_CONFIG, APP_CONFIG} from "./app.config";
+import {DOT_CONFIG, APP_CONFIG} from "./app.config";
+import * as ng2log from 'angular2-logger/core';
+import {Logger, LOG_LOGGER_PROVIDERS, Options as LoggerOptions, Level as LoggerLevel} from "angular2-logger/core";
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import {AppConfig, DOT_CONFIG, APP_CONFIG} from "./app.config";
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-        {provide: APP_CONFIG, useValue: DOT_CONFIG}
+        {provide: APP_CONFIG, useValue: DOT_CONFIG},
+        {provide: LoggerOptions, useValue: { level: LoggerLevel.INFO } },Logger
     ],
     bootstrap: [App]
 })
