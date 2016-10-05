@@ -34,6 +34,40 @@
     transition: border-color .15s linear;
 }
 
+.page-content {
+    /*margin: auto;*/
+    /*width: 100%;*/
+}
+
+.clear{
+    clear: both;
+    display: table;
+    content: "";
+}
+
+.datatable {
+    /*margin-right: 200px;*/
+}
+
+.treeable-detail {
+    height: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+}
+
+.treeable-detail-input {
+    width: 100%;
+    /*margin-top: 10px;*/
+}
+
+.treeable-detail-label{
+    display: block;
+    text-align: right;
+    /*display: inline-block;*/
+    /*width: 150px;*/
+}
+
 .dropzone.dragging {
     border-color: rgba(255,255,255, 0.5);
 }
@@ -110,4 +144,19 @@ button:first-of-type {
 
 .control {
     margin-bottom: 15px;
+}
+
+.liveIcon {
+    background: url(./src/assets/images/dotcms-sprite.png) no-repeat -1px -1080px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: top;
+}
+.workingIcon {
+    background: url(./src/assets/images/dotcms-sprite.png) no-repeat -21px -1080px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: top;
 }

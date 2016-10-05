@@ -1,5 +1,6 @@
-import {NotificationService} from "./message.service";
+import {NotificationService} from "./notification.service";
 import {Inject} from "@angular/core";
+
 var fs = require('fs');
 
 @Inject("messageService")
@@ -11,6 +12,21 @@ export class FileSystemService {
     )
     {
         this.messageService = messageService
+    }
+
+    recurseDirectory(directory : string, files : String[]) : String[]{
+        let filePaths : string = fs.readdirSync(directory);
+        if(files==null){files=[]}
+        for (var i = 0; i < filePaths.length; i++) {
+            let file = filePaths[i];
+            if (fs.statSync(directory + '/' + file).isDirectory()) {
+                files = this.recurseDirectory(directory + '/' + file, files);
+            }
+            else {
+                files.push(file);
+            }
+        };
+        return files;
     }
 
     isDirectory(localPath : string) {

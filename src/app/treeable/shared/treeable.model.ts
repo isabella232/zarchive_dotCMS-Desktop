@@ -8,8 +8,6 @@ export class Treeable{
     working : boolean;
     archived : boolean;
     title: string;
-
-    modDateFormated(){
-        this.modDate.toISOString().split('T')[0];
-    }
+    displayType: string;
+    modUser : string;
 }

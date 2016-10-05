@@ -18,7 +18,13 @@ import {DragDropModule} from "primeng/components/dragdrop/dragdrop";
 import {SiteTreeTableComponent} from "./site-treetable/site-treetable.component";
 import {DOT_CONFIG, APP_CONFIG} from "./app.config";
 import {Logger, LOG_LOGGER_PROVIDERS, Options as LoggerOptions, Level as LoggerLevel} from "angular2-logger/core";
-import {SiteBrowserState} from "./site-browser/shared/site-browser.state";
+import {SiteBrowserState} from "./util/site-browser.state";
+import {SiteDatatableComponent} from "./site-datatable/site-datatable.component";
+import {DataTableModule} from "primeng/components/datatable/datatable";
+import {InputTextModule} from "primeng/components/inputtext/inputtext";
+import {TreeableDetailComponent} from "./treeable-detail/treeable-detail.component";
+import {ButtonModule} from "primeng/components/button/button";
+import {LocalStoreService} from "./util/local-store.service";
 
 
 @NgModule({
@@ -30,11 +36,14 @@ import {SiteBrowserState} from "./site-browser/shared/site-browser.state";
         TreeTableModule,
         SharedModule,
         TreeModule,
+        DataTableModule,
         AutoCompleteModule,
         FormsModule,
         BreadcrumbModule,
         MenuModule,
-        DragDropModule
+        DragDropModule,
+        InputTextModule,
+        ButtonModule
     ],
     declarations: [
         AppComponent,
@@ -44,12 +53,15 @@ import {SiteBrowserState} from "./site-browser/shared/site-browser.state";
         SiteBrowserComponent,
         SiteSelectorComponent,
         SiteTreeTableComponent,
-        BreadcrumbComponent
+        BreadcrumbComponent,
+        SiteDatatableComponent,
+        TreeableDetailComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: APP_CONFIG, useValue: DOT_CONFIG},
         {provide: SiteBrowserState, useClass: SiteBrowserState},
+        {provide: LocalStoreService, useClass: LocalStoreService},
         {provide: LoggerOptions, useValue: { level: LoggerLevel.INFO } },Logger
     ],
     bootstrap: [AppComponent]

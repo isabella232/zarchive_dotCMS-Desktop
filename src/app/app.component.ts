@@ -1,6 +1,7 @@
+import {AppConfig, APP_CONFIG} from "./app.config";
 let filters = require('./../assets/data/filters.json');
 
-import {Component, NgZone} from '@angular/core';
+import {Component, NgZone, Inject} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,9 +17,12 @@ export class AppComponent {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private ngZone : NgZone
+        private ngZone : NgZone,
+        @Inject(APP_CONFIG) config: AppConfig
     )
-    {}
+    {
+
+    }
 
     openSettings() {
         if(this.settingsOpened){

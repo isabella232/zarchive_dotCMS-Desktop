@@ -1,11 +1,11 @@
 import {Inject} from "@angular/core";
 import {Response} from "@angular/http";
-import {HttpClient} from "../../util/http.service";
+import {HttpClient} from "./http.service";
 import {Observable} from "rxjs";
-import {Treeable} from "../../treeable/shared/treeable.model";
-import {Folder} from "../../treeable/shared/folder.model";
-import {File} from "../../treeable/shared/file.model";
-import {NotificationService} from "../../util/message.service";
+import {Treeable} from "../treeable/shared/treeable.model";
+import {Folder} from "../treeable/shared/folder.model";
+import {File} from "../treeable/shared/file.model";
+import {NotificationService} from "./notification.service";
 
 @Inject("httpClient")
 export class SiteBrowserService {
@@ -31,8 +31,7 @@ export class SiteBrowserService {
             .catch(error => this.handleError(error));
     }
 
-    private
-    extractDataFilter(res: Response): Treeable[] {
+    private extractDataFilter(res: Response): Treeable[] {
         let treeables: Treeable[] = [];
         let obj = JSON.parse(res.text());
         let results: any[] = obj.entity.result;
@@ -40,11 +39,10 @@ export class SiteBrowserService {
             let r: any = results[i];
             let t: Treeable;
             if (r.type == 'folder') {
-                t = new Folder();
+                t = Object.assign(new Folder(), r);
             } else if (r.type == 'file_asset') {
-                t = new File();
+                t = Object.assign(new File(), r);
             }
-            t = r;
             treeables[i] = t;
         }
         return treeables;

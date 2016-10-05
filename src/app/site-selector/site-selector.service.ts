@@ -1,5 +1,5 @@
 import {HttpClient} from "../util/http.service";
-import {NotificationService} from "../util/message.service";
+import {NotificationService} from "../util/notification.service";
 import {Response} from "@angular/http";
 import {Site} from "../treeable/shared/site.model";
 import {Observable} from "rxjs";

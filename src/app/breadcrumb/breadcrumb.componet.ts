@@ -1,6 +1,6 @@
 import {MenuItem} from "primeng/components/common/api";
 import {Component, Output, Inject} from "@angular/core";
-import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
+import {SiteBrowserState} from "../util/site-browser.state";
 import {Subscription} from "rxjs";
 import EventEmitter = NodeJS.EventEmitter;
 
@@ -59,6 +59,8 @@ export class BreadcrumbComponent {
                 this.updateService.changeSite(siteName);
                 this.updateService.changeURI(null);
                 this.updateService.changeFolder(null);
+                setTimeout(() => {
+                }, 100)
             }
         });
     }
@@ -68,6 +70,8 @@ export class BreadcrumbComponent {
         this.pathItems.push({
             label: folderName, command: (event: Event) => {
                 this.updateService.changeURI(currentURI + "/" + folderName);
+                setTimeout(() => {
+                }, 100)
             }
         });
     }

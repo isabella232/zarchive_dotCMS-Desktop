@@ -9,7 +9,7 @@ import {writeFile} from 'fs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
-import {NotificationService} from "../util/message.service";
+import {NotificationService} from "../util/notification.service";
 
 var fs = require('fs');
 

@@ -1,10 +1,10 @@
 import {Component, Inject} from "@angular/core";
 import {Message, TreeNode} from "primeng/components/common/api";
 import {FileSystemService} from "../util/filesystem.service"
-import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
+import {SiteBrowserState} from "../util/site-browser.state";
 import {Subscription} from "rxjs";
 import {SiteTreetableService} from "./site-treetable.service";
-import {NotificationService} from "../util/message.service";
+import {NotificationService} from "../util/notification.service";
 import {LoggerService} from "../util/logger.service";
 
 let fs = require('fs');
@@ -28,11 +28,12 @@ export class SiteTreeTableComponent {
 
     constructor(private updateService: SiteBrowserState,
                 private fsService: FileSystemService,
-                private siteTreetableService: SiteTreetableService,
                 private log: LoggerService,
+                private siteTreetableService: SiteTreetableService,
                 private messageService: NotificationService) {
 
         this.siteName = updateService.getSelectedSite();
+        if(updateService.getURI()){this.loadFolder(updateService.getURI())};
         this.subscription = updateService.currentSite
             .subscribe(siteName => {
                 if (siteName){this.loadHost(siteName)}
@@ -82,8 +83,10 @@ export class SiteTreeTableComponent {
     }
 
     loadFolder(uri: string) {
+        this.log.debug("loading folder with URI : " + uri);
         this.siteTreetableService.getAssetsUnderFolder(this.siteName, uri)
             .subscribe(items => this.lazyFiles = items);
+        this.log.debug("done loading folder with URI : " + uri);
         setTimeout(() => {
         }, 100)
     }
@@ -103,6 +106,7 @@ export class SiteTreeTableComponent {
         pathName = pathName.slice(0, pathName.length - 1);
         pathName = pathName.slice(pathName.lastIndexOf("/") + 1, pathName.length)
         this.updateService.changeFolder(pathName);
+        this.updateService.changeURI(event.node.data.path);
         if (event.node) {
             this.siteTreetableService.getAssetsUnderFolder(this.siteName, event.node.data.path)
                 .subscribe(items => this.lazyFiles = items);

@@ -4,9 +4,9 @@ import {Response} from "@angular/http";
 
 import 'rxjs/add/operator/map';
 import {Observable, Subscription} from "rxjs";
-import {SiteBrowserState} from "../site-browser/shared/site-browser.state";
+import {SiteBrowserState} from "../util/site-browser.state";
 import {Site} from "../treeable/shared/site.model";
-import {NotificationService} from "../util/message.service";
+import {NotificationService} from "../util/notification.service";
 import {SiteSelectorService} from "./site-selector.service";
 
 @Inject('updateService')

@@ -1,5 +1,5 @@
 import {Inject} from "@angular/core";
-import {SiteBrowserService} from "../site-browser/shared/site-browser.service";
+import {SiteBrowserService} from "../util/site-browser.service";
 import {TreeNode} from "primeng/components/common/api";
 import {Observable} from "rxjs";
 

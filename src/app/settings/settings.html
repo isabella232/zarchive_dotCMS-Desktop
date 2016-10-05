@@ -1,4 +1,23 @@
 <div class="page-content">
-    <p>SETTINGS FORM HERE</p>
+    <h4>Configuration</h4>
+    <form (ngSubmit)="onSubmit()">
+        <div>
+            <label for="site">dotCMS URL</label>
+            <input type="text" pInputText id="site"
+                   required
+                   [(ngModel)]="configSettings.site" name="site">
+        </div>
+        <div>
+            <label for="site">dotCMS URL</label>
+            <input type="text" pInputText id="username"
+                   [(ngModel)]="configSettings.userName"
+                    name="site">
+        </div>
+        <label for="site">dotCMS URL</label>
+        <input type="text" pPassword id="password"
+               [(ngModel)]="configSettings.password"
+                name="site">
+        <button pButton type="text" label="Update Config" style="width: auto"></button>
+    </form>
 </div>
 
