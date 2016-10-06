@@ -8,13 +8,13 @@ import {SiteBrowserState} from "../util/site-browser.state";
 import {Site} from "../treeable/shared/site.model";
 import {NotificationService} from "../util/notification.service";
 import {SiteSelectorService} from "./site-selector.service";
+import {SettingsService} from "../settings/shared/settings.service";
 
 @Inject('updateService')
 @Component({
     selector: 'site-selector',
     template: require('./site-selector.html'),
-    styles: [require('./../app.css')],
-    providers: [HttpClient]
+    styles: [require('./../app.css')]
 })
 export class SiteSelectorComponent {
 

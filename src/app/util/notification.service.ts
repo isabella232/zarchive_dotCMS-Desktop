@@ -1,9 +1,10 @@
 import {AppConfig, APP_CONFIG} from "../app.config";
-import {Inject} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 declare class Notification {
     constructor(title: string, options?: Object)
 }
 
+@Injectable()
 export class NotificationService {
 
     iconPath : string;

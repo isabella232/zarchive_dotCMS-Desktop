@@ -1,49 +1,62 @@
-import {Inject} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, Headers, Response, RequestMethod, RequestOptions} from '@angular/http';
 import {Observable} from "rxjs";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
+import {SettingsStorageService} from "../settings/shared/settings-storage.service";
 
-@Inject("http")
+@Injectable()
 export class HttpClient {
     public progress$
     private progress
     private progressObserver
 
-    constructor(private http: Http) {
-        this.http = http;
+    constructor(
+        private http: Http,
+        private settingsStorageService: SettingsStorageService
+
+    ) {
+        // this.http = http;
+        // this.settingsService=settingsService;
         this.progress$ = Observable.create(observer => {
             this.progressObserver = observer
         }).share();
     }
 
-    createAuthorizationHeader(headers: Headers, username: String, password: String) {
-        headers.append('Authorization', 'Basic ' +
-            btoa(username + ':' + password));
+    createAuthorizationHeader(headers: Headers) {
+        headers.append('Authorization', 'Bearer ' + this.settingsStorageService.getSettings().jwt);
     }
 
-    get(url): Observable<Response> {
+    get(path): Observable<Response> {
         let headers = new Headers();
-        this.createAuthorizationHeader(headers, 'admin@dotcms.com', 'admin');
-        return this.http.get(url, {headers: headers})
+        this.createAuthorizationHeader(headers);
+        return this.http.get(this.settingsStorageService.getSettings().site + path, {headers: headers})
             .debounceTime(400)
             .distinctUntilChanged();
     }
 
-    put(url: String, jsonData: Object) {
+    put(path: String, data: Object) {
         let opts: RequestOptions = new RequestOptions();
         opts.method = RequestMethod.Put;
         opts.headers = new Headers({'Content-Type': 'application/json'});
-        this.createAuthorizationHeader(opts.headers, 'admin@dotcms.com', 'admin');
-        return this.http.put(url.toString(), JSON.stringify(jsonData), opts)
+        this.createAuthorizationHeader(opts.headers);
+        return this.http.put(this.settingsStorageService.getSettings().site + path.toString(), JSON.stringify(data), opts)
             .toPromise()
             .then(this.extractData)
             .catch(this.handleError);
     }
 
-    filePut(url: String, files: File[], jsonData: Object): Observable<Object> {
+    post(path: String, data: Object):Observable<Response>{
+        let opts: RequestOptions = new RequestOptions();
+        opts.method = RequestMethod.Post;
+        opts.headers = new Headers({'Content-Type': 'application/json'});
+        this.createAuthorizationHeader(opts.headers);
+        return this.http.post(this.settingsStorageService.getSettings().site + path,JSON.stringify(data),opts);
+    }
+
+    filePut(path: String, files: File[], jsonData: Object): Observable<Object> {
         return Observable.create(observer => {
             let username = 'admin@dotcms.com';
             let password = 'admin';
@@ -75,7 +88,7 @@ export class HttpClient {
                 this.progressObserver.next(this.progress);
             };
 
-            xhr.open('PUT', url.toString(), true);
+            xhr.open('PUT', this.settingsStorageService.getSettings().site + path.toString(), true);
             xhr.setRequestHeader('Authorization', 'Basic ' +
                 btoa(username + ':' + password))
             // xhr.setRequestHeader('Content-Type', 'multipart/form-data');

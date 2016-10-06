@@ -1,3 +1,6 @@
+import {Injectable} from "@angular/core";
+
+@Injectable()
 export class LocalStoreService{
 
     storeValue(key:string,value:any){
@@ -12,6 +15,10 @@ export class LocalStoreService{
 
     clearValue(key:string){
         localStorage.removeItem(key);
+    }
+
+    clear(){
+        localStorage.clear();
     }
 
 }

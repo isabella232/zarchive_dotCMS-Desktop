@@ -1,8 +1,10 @@
 import {nativeImage} from 'electron';
 import { read,write } from 'fs';
+import {Injectable} from "@angular/core";
 
 var fs = require('fs');
 
+@Injectable()
 class CanvasService {
     context: CanvasRenderingContext2D;
     original: ImageData;

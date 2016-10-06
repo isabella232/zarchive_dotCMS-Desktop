@@ -1,18 +1,16 @@
 import {NotificationService} from "./notification.service";
-import {Inject} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 
 var fs = require('fs');
 
-@Inject("messageService")
+@Injectable()
 export class FileSystemService {
 
     constructor
     (
         private messageService: NotificationService
     )
-    {
-        this.messageService = messageService
-    }
+    {}
 
     recurseDirectory(directory : string, files : String[]) : String[]{
         let filePaths : string = fs.readdirSync(directory);

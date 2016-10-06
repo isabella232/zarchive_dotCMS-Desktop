@@ -5,7 +5,7 @@
             <span [ngSwitch]="treeable.type">
                 <span *ngSwitchCase="'folder'" class="{{treeable.type=='folder' ? 'fa fa-folder aria-hidden=true':''}}"></span>
                 <span *ngSwitchCase="'file_asset'">
-                    <img *ngIf="treeable.isImage() && treeable.extension!='ico'" src="http://localhost:8080/contentAsset/image/{{treeable.identifier}}/fileAsset/filter/Thumbnail/thumbnail_w/25/thumbnail_h/25">
+                    <img *ngIf="treeable.isImage() && treeable.extension!='ico'" src="{{dotCMSURL}}/contentAsset/image/{{treeable.identifier}}/fileAsset/filter/Thumbnail/thumbnail_w/25/thumbnail_h/25">
                     <span *ngIf="!treeable.isImage() || treeable.extension=='ico'" class="fa fa-file" aria-hidden="true"></span>
                 </span>
             </span>

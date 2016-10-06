@@ -1,3 +1,4 @@
+import {SettingsService} from "../settings/shared/settings.service";
 let filters = require('./../../assets/data/filters.json');
 
 import { ViewChild, Input, Component, ElementRef } from '@angular/core';
@@ -8,7 +9,7 @@ import { remote } from 'electron';
 @Component({
     selector: '[thumbnail]',
     template: `<canvas #childCanvas></canvas>`,
-    providers: [ CanvasService ],
+    providers: [ CanvasService,SettingsService ],
     styles: [`
     img, canvas {
       width: 150px;

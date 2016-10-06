@@ -2,22 +2,23 @@
     <h4>Configuration</h4>
     <form (ngSubmit)="onSubmit()">
         <div>
-            <label for="site">dotCMS URL</label>
-            <input type="text" pInputText id="site"
+            <label for="siteURL">dotCMS URL</label>
+            <input type="text" pInputText id="siteURL"
                    required
-                   [(ngModel)]="configSettings.site" name="site">
+                   [(ngModel)]="configSettings.siteURL" name="siteURL">
         </div>
         <div>
-            <label for="site">dotCMS URL</label>
+            <label for="username">Username</label>
             <input type="text" pInputText id="username"
                    [(ngModel)]="configSettings.userName"
-                    name="site">
+                    name="username">
         </div>
-        <label for="site">dotCMS URL</label>
-        <input type="text" pPassword id="password"
+        <label for="password">Password</label>
+        <input type="password" pPassword id="password"
                [(ngModel)]="configSettings.password"
-                name="site">
+                name="password">
         <button pButton type="text" label="Update Config" style="width: auto"></button>
     </form>
+    <button pButton type="text" (click)="removeCurrentToken()" label="Clear JWT Token" style="width: auto"></button>
 </div>
 

@@ -8,6 +8,8 @@ import {SiteDatatableService} from "./site-datatable.service";
 import {NotificationService} from "../util/notification.service";
 import {SiteBrowserService} from "../util/site-browser.service";
 import {Folder} from "../treeable/shared/folder.model";
+import {SettingsService} from "../settings/shared/settings.service";
+import {SettingsStorageService} from "../settings/shared/settings-storage.service";
 
 @Component({
     selector: 'site-datatable',
@@ -16,7 +18,8 @@ import {Folder} from "../treeable/shared/folder.model";
 })
 export class SiteDatatableComponent {
 
-    siteName: string;
+    dotCMSURL: string ="";
+    siteName: string = "";
     treeables: Treeable[];
     subscription: Subscription;
 
@@ -24,8 +27,10 @@ export class SiteDatatableComponent {
                 private fsService: FileSystemService,
                 private log: LoggerService,
                 private siteBrowserService: SiteBrowserService,
+                private settingsStorageService: SettingsStorageService,
                 private messageService: NotificationService) {
 
+        if(settingsStorageService.getSettings()){this.dotCMSURL=settingsStorageService.getSettings().site};
         this.siteName = updateService.getSelectedSite();
         if (updateService.getURI()) {
             this.loadFolder(updateService.getURI())

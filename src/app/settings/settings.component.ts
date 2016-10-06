@@ -1,7 +1,12 @@
 import {Component, Inject} from '@angular/core';
 import { remote, ipcRenderer } from 'electron';
-import {DotCMSDesktopSettings} from "./settings.model";
+import {DotSettings} from "./settings.model";
 import {LocalStoreService} from "../util/local-store.service";
+import {SettingsService} from "./shared/settings.service";
+import {JWTAuthService} from "../util/jwt-auth.service";
+import {SiteBrowserState} from "../util/site-browser.state";
+import {HttpClient} from "../util/http.service";
+import {SettingsStorageService} from "./shared/settings-storage.service";
 
 export class ConfigSettings {
     siteURL : string
@@ -17,20 +22,26 @@ export class ConfigSettings {
 export class SettingsComponent {
 
     configSettings : ConfigSettings = new ConfigSettings();
-    dotConf : DotCMSDesktopSettings;
+    dotConf : DotSettings;
 
     constructor(
-        private localStorageService : LocalStoreService
+        private settingsStorageService : SettingsStorageService,
+        private settingsService : SettingsService
     ) {
-        this.dotConf = JSON.parse(this.localStorageService.getValue("siteURL"));
+        this.dotConf = this.settingsStorageService.getSettings();
         if (!this.dotConf) {
-            this.dotConf = new DotCMSDesktopSettings();
+            this.dotConf = new DotSettings();
         }else{
             this.configSettings.siteURL=this.dotConf.site;
         }
     }
     onSubmit() {
-        // this.localStorageService.storeValue("siteURL",JSON.stringify(this.dotConf));
+
+        this.settingsService.saveConfigSettings(this.configSettings);
+    }
+
+    removeCurrentToken(){
+        this.settingsStorageService.clearSettings();
     }
 
 }

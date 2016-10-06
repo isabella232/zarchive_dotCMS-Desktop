@@ -25,6 +25,20 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {TreeableDetailComponent} from "./treeable-detail/treeable-detail.component";
 import {ButtonModule} from "primeng/components/button/button";
 import {LocalStoreService} from "./util/local-store.service";
+import {HttpClient} from "./util/http.service";
+import {SettingsService} from "./settings/shared/settings.service";
+import {JWTAuthService} from "./util/jwt-auth.service";
+import {NotificationService} from "./util/notification.service";
+import {LoggerService} from "./util/logger.service";
+import {FileSystemService} from "./util/filesystem.service";
+import {SiteTreetableService} from "./site-treetable/site-treetable.service";
+import {SiteBrowserService} from "./util/site-browser.service";
+import {SiteSelectorService} from "./site-selector/site-selector.service";
+import {SettingsStorageService} from "./settings/shared/settings-storage.service";
+import {CanvasService} from "./image-edit/canvas.service";
+import {AppRouterService} from "./app-router.service";
+import {PasswordModule} from "primeng/components/password/password";
+
 
 
 @NgModule({
@@ -43,7 +57,8 @@ import {LocalStoreService} from "./util/local-store.service";
         MenuModule,
         DragDropModule,
         InputTextModule,
-        ButtonModule
+        ButtonModule,
+        PasswordModule
     ],
     declarations: [
         AppComponent,
@@ -58,11 +73,23 @@ import {LocalStoreService} from "./util/local-store.service";
         TreeableDetailComponent
     ],
     providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: HttpClient, useClass: HttpClient},
         {provide: APP_CONFIG, useValue: DOT_CONFIG},
+        {provide: AppRouterService, useClass: AppRouterService},
+        {provide: SettingsService, useClass: SettingsService},
+        {provide: CanvasService, useClass: CanvasService},
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: NotificationService, useClass: NotificationService},
+        {provide: FileSystemService, useClass: FileSystemService},
+        {provide: SiteTreetableService, useClass: SiteTreetableService},
+        {provide: SiteBrowserService, useClass: SiteBrowserService},
+        {provide: SiteSelectorService, useClass: SiteSelectorService},
+        {provide: LoggerOptions, useValue: { level: LoggerLevel.INFO } },Logger,
+        {provide: LoggerService, useClass: LoggerService},
+        {provide: JWTAuthService, useClass: JWTAuthService},
         {provide: SiteBrowserState, useClass: SiteBrowserState},
-        {provide: LocalStoreService, useClass: LocalStoreService},
-        {provide: LoggerOptions, useValue: { level: LoggerLevel.INFO } },Logger
+        {provide: SettingsStorageService, useClass: SettingsStorageService},
+        {provide: LocalStoreService, useClass: LocalStoreService}
     ],
     bootstrap: [AppComponent]
 })

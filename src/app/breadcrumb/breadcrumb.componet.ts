@@ -3,11 +3,13 @@ import {Component, Output, Inject} from "@angular/core";
 import {SiteBrowserState} from "../util/site-browser.state";
 import {Subscription} from "rxjs";
 import EventEmitter = NodeJS.EventEmitter;
+import {SettingsService} from "../settings/shared/settings.service";
 
 @Component({
     selector: 'breadcrumb',
     template: require('./breadcrumb.html'),
-    styles: [require('./../app.css')]
+    styles: [require('./../app.css')],
+    providers: [SettingsService]
 })
 @Inject('updateService')
 export class BreadcrumbComponent {

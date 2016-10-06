@@ -1,4 +1,4 @@
-import {Inject} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {SiteBrowserService} from "../util/site-browser.service";
 import {TreeNode} from "primeng/components/common/api";
 import {Observable} from "rxjs";
@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
 import 'rxjs/add/operator/map';
 import {Treeable} from "../treeable/shared/treeable.model";
 
-@Inject('siteBrowserService')
+@Injectable()
 export class SiteTreetableService {
 
     constructor

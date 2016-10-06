@@ -3,6 +3,8 @@ import {Treeable} from "../treeable/shared/treeable.model";
 import {LoggerService} from "../util/logger.service";
 import {SiteBrowserState} from "../util/site-browser.state";
 import {Subscription} from "rxjs";
+import {SettingsService} from "../settings/shared/settings.service";
+import {SettingsStorageService} from "../settings/shared/settings-storage.service";
 @Component({
     selector: 'treeable-detail',
     template: require('./treeable-detail.html'),
@@ -10,11 +12,15 @@ import {Subscription} from "rxjs";
 })
 export class TreeableDetailComponent {
 
+    dotCMSURL: string = "";
     treeable : Treeable = new Treeable();
     subscription: Subscription;
 
-    constructor(private updateService: SiteBrowserState) {
-
+    constructor(
+        private updateService: SiteBrowserState,
+        private settingsStorageService: SettingsStorageService
+    ) {
+        if(settingsStorageService.getSettings()){this.dotCMSURL=settingsStorageService.getSettings().site};
         if(updateService.getSelectedTreeable()){this.treeable = updateService.getSelectedTreeable()};
         this.subscription = updateService.currentTreeable
             .subscribe(treeable => {

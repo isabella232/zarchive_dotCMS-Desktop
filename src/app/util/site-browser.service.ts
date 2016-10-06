@@ -1,4 +1,4 @@
-import {Inject} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {Response} from "@angular/http";
 import {HttpClient} from "./http.service";
 import {Observable} from "rxjs";
@@ -7,7 +7,7 @@ import {Folder} from "../treeable/shared/folder.model";
 import {File} from "../treeable/shared/file.model";
 import {NotificationService} from "./notification.service";
 
-@Inject("httpClient")
+@Injectable()
 export class SiteBrowserService {
 
     constructor
@@ -20,13 +20,13 @@ export class SiteBrowserService {
     }
 
     getTreeableAssetsUnderSite(siteName: String): Observable < Treeable[] > {
-        return this.httpClient.get('http://localhost:8080/api/v1/browsertree/sitename/' + siteName + '/uri//')
+        return this.httpClient.get('/api/v1/browsertree/sitename/' + siteName + '/uri//')
             .map((res: Response) => this.extractDataFilter(res))
             .catch(error => this.handleError(error));
     }
 
     getTreeableAssetsUnderFolder(hostName: String, uri: String): Observable < Treeable[] > {
-        return this.httpClient.get('http://localhost:8080/api/v1/browsertree/sitename/' + hostName + '/uri/' + uri)
+        return this.httpClient.get('/api/v1/browsertree/sitename/' + hostName + '/uri/' + uri)
             .map((res: Response) => this.extractDataFilter(res))
             .catch(error => this.handleError(error));
     }

@@ -3,9 +3,9 @@ import {NotificationService} from "../util/notification.service";
 import {Response} from "@angular/http";
 import {Site} from "../treeable/shared/site.model";
 import {Observable} from "rxjs";
-import {Inject} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 
-@Inject('httpClient')
+@Injectable()
 export class SiteSelectorService{
 
     constructor
@@ -16,13 +16,13 @@ export class SiteSelectorService{
     {}
 
     filterForSites(searchQuery : string) : Observable<Site[]>{
-        return this.httpClient.get('http://localhost:8080/api/v1/site/filter/' + searchQuery + '/archived/false')
+        return this.httpClient.get('/api/v1/site/filter/' + searchQuery + '/archived/false')
             .map((res: Response) => this.extractDataFilter(res))
             .catch(err => this.handleError(err));
     }
 
     getSites() : Observable<Site[]>{
-        return this.httpClient.get('http://localhost:8080/api/v1/site/currentSite')
+        return this.httpClient.get('/api/v1/site/currentSite')
             .map((res: Response) => this.extractDataDropdown(res))
             .catch(err => this.handleError(err));
     }
