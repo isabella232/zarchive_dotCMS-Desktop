@@ -15,9 +15,7 @@ export class SiteBrowserService {
         private httpClient: HttpClient,
         private notificationService: NotificationService
     )
-    {
-        this.httpClient = httpClient;
-    }
+    {}
 
     getTreeableAssetsUnderSite(siteName: String): Observable < Treeable[] > {
         return this.httpClient.get('/api/v1/browsertree/sitename/' + siteName + '/uri//')

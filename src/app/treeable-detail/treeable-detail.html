@@ -1,6 +1,6 @@
 <div *ngIf="treeable.type=='file_asset'">
     <div>
-        <img *ngIf="treeable.isImage() && treeable.extension!='ico'" src="dotCMSURL/contentAsset/image/{{treeable.identifier}}/fileAsset/filter/Thumbnail/thumbnail_w/225/thumbnail_h/225">
+        <img *ngIf="treeable.isImage() && treeable.extension!='ico'" src="{{dotCMSURL}}/contentAsset/image/{{treeable.identifier}}/fileAsset/filter/Thumbnail/thumbnail_w/225/thumbnail_h/225">
     </div>
     <div class="ui-g">
         <div class="ui-g-3"><label class="treeable-detail-label">Inode</label></div>

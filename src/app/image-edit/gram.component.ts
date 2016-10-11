@@ -164,7 +164,7 @@ export class GramComponent {
 
         // file :File = readFile();
 
-        this._httpClient.filePut('/api/content/publish/1', files, data).subscribe();
+        this._httpClient.filePut('/api/content/publish/1', files[0], data).subscribe();
     }
 
 

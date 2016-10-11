@@ -16,9 +16,9 @@ export class SiteSelectorService{
     {}
 
     filterForSites(searchQuery : string) : Observable<Site[]>{
-        return this.httpClient.get('/api/v1/site/filter/' + searchQuery + '/archived/false')
-            .map((res: Response) => this.extractDataFilter(res))
-            .catch(err => this.handleError(err));
+    return this.httpClient.get('/api/v1/site/filter/' + searchQuery + '/archived/false')
+        .map((res: Response) => this.extractDataFilter(res))
+        .catch(err => this.handleError(err));
     }
 
     getSites() : Observable<Site[]>{

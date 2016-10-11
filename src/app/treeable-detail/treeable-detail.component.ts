@@ -20,7 +20,7 @@ export class TreeableDetailComponent {
         private updateService: SiteBrowserState,
         private settingsStorageService: SettingsStorageService
     ) {
-        if(settingsStorageService.getSettings()){this.dotCMSURL=settingsStorageService.getSettings().site};
+        if(settingsStorageService.getSettings()!=null){this.dotCMSURL=settingsStorageService.getSettings().site};
         if(updateService.getSelectedTreeable()){this.treeable = updateService.getSelectedTreeable()};
         this.subscription = updateService.currentTreeable
             .subscribe(treeable => {

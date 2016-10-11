@@ -84,4 +84,32 @@ export class SiteDatatableComponent {
         setTimeout(() => {}, 100)
     }
 
+    handleDragOver(e) {
+        // this.dropzoneStylesVisible = true;
+    }
+
+    handleDrop(e) {
+        e.preventDefault();
+        let pathToUploadTo: string;
+        let files: File = e.dataTransfer.files;
+        let folderTitle: string = e.path[0].innerText;
+        console.log(files);
+        files[0].
+        // for (let i = 0; i < this.treeables.length; i++) {
+        //     let node: Treeable = this.treeables[i];
+        //     if (node.title == folderTitle && node.type == "folder") {
+        //         pathToUploadTo = (<Folder>node).path;
+        //         break;
+        //     }
+        // }
+        this.log.debug("Path : " + pathToUploadTo);
+        // console.log("Is Directory : " + fs.statSync(files[0].path).isDirectory());
+        this.messageService.displayInfoMessage("Path is " + pathToUploadTo);
+
+
+        // console.log("Is Directory : " + this.fsService.isDirectory(files[0].path));
+
+        return false;
+    }
+
 }

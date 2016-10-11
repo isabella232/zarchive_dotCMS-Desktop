@@ -56,21 +56,13 @@ export class HttpClient {
         return this.http.post(this.settingsStorageService.getSettings().site + path,JSON.stringify(data),opts);
     }
 
-    filePut(path: String, files: File[], jsonData: Object): Observable<Object> {
+    filePut(path: String, file: File, jsonData: Object): Observable<Object> {
         return Observable.create(observer => {
-            let username = 'admin@dotcms.com';
-            let password = 'admin';
-            let formData: FormData = new FormData(),
-                xhr: XMLHttpRequest = new XMLHttpRequest();
-
+            let formData: FormData = new FormData(), xhr: XMLHttpRequest = new XMLHttpRequest();
             formData.append('json', JSON.stringify(jsonData));
 
-            console.log(files[0]);
-            formData.append("fileAsset", files[0]);
-            // for (let i = 0; i < files.length; i++) {
-            //     formData.append('fileAsset[]', files[i], files[i].name);
-            // }
-
+            console.log(file);
+            formData.append("fileAsset", file);
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
@@ -89,9 +81,7 @@ export class HttpClient {
             };
 
             xhr.open('PUT', this.settingsStorageService.getSettings().site + path.toString(), true);
-            xhr.setRequestHeader('Authorization', 'Basic ' +
-                btoa(username + ':' + password))
-            // xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+            xhr.setRequestHeader('Authorization', 'Bearer ' + this.settingsStorageService.getSettings().jwt)
             console.log(formData);
             xhr.send(formData);
         });
