@@ -34,7 +34,7 @@ import {FileSystemService} from "./util/filesystem.service";
 import {SiteTreetableService} from "./site-treetable/site-treetable.service";
 import {SiteBrowserService} from "./util/site-browser.service";
 import {SiteSelectorService} from "./site-selector/site-selector.service";
-import {SettingsStorageService} from "./settings/shared/settings-storage.service";
+import {SettingsStorageService} from "./util/settings-storage.service";
 import {CanvasService} from "./image-edit/canvas.service";
 import {AppRouterService} from "./app-router.service";
 import {PasswordModule} from "primeng/components/password/password";

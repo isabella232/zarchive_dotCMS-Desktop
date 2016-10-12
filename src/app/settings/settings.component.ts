@@ -1,12 +1,12 @@
 import {Component, Inject} from '@angular/core';
 import { remote, ipcRenderer } from 'electron';
-import {DotSettings} from "./settings.model";
+import {DotSettings} from "../util/settings.model";
 import {LocalStoreService} from "../util/local-store.service";
 import {SettingsService} from "./shared/settings.service";
 import {JWTAuthService} from "../util/jwt-auth.service";
 import {SiteBrowserState} from "../util/site-browser.state";
 import {HttpClient} from "../util/http.service";
-import {SettingsStorageService} from "./shared/settings-storage.service";
+import {SettingsStorageService} from "../util/settings-storage.service";
 
 export class ConfigSettings {
     siteURL : string

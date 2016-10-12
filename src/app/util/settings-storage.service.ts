@@ -1,10 +1,10 @@
-import {LocalStoreService} from "../../util/local-store.service";
-import {DotSettings} from "../settings.model";
-import {APP_CONFIG, AppConfig} from "../../app.config";
+import {LocalStoreService} from "./local-store.service";
+import {DotSettings} from "./settings.model";
+import {APP_CONFIG, AppConfig} from "../app.config";
 import {Inject, Injectable} from "@angular/core";
-import {ConfigSettings} from "../settings.component";
-import {JWTAuthService} from "../../util/jwt-auth.service";
-import {SiteBrowserState} from "../../util/site-browser.state";
+import {ConfigSettings} from "../settings/settings.component";
+import {JWTAuthService} from "./jwt-auth.service";
+import {SiteBrowserState} from "./site-browser.state";
 import {inject} from "@angular/core/testing";
 
 @Injectable()

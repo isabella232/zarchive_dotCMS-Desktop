@@ -9,7 +9,7 @@ import {NotificationService} from "../util/notification.service";
 import {SiteBrowserService} from "../util/site-browser.service";
 import {Folder} from "../treeable/shared/folder.model";
 import {SettingsService} from "../settings/shared/settings.service";
-import {SettingsStorageService} from "../settings/shared/settings-storage.service";
+import {SettingsStorageService} from "../util/settings-storage.service";
 
 @Component({
     selector: 'site-datatable',

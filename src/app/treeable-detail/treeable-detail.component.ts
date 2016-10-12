@@ -4,7 +4,7 @@ import {LoggerService} from "../util/logger.service";
 import {SiteBrowserState} from "../util/site-browser.state";
 import {Subscription} from "rxjs";
 import {SettingsService} from "../settings/shared/settings.service";
-import {SettingsStorageService} from "../settings/shared/settings-storage.service";
+import {SettingsStorageService} from "../util/settings-storage.service";
 @Component({
     selector: 'treeable-detail',
     template: require('./treeable-detail.html'),

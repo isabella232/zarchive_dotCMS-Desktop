@@ -6,7 +6,6 @@ import {Subscription} from "rxjs";
 import {SiteTreetableService} from "./site-treetable.service";
 import {NotificationService} from "../util/notification.service";
 import {LoggerService} from "../util/logger.service";
-import {SettingsService} from "../settings/shared/settings.service";
 
 let fs = require('fs');
 
