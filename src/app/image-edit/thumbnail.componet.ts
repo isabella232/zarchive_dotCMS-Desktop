@@ -3,7 +3,6 @@ let filters = require('./../../assets/data/filters.json');
 
 import { ViewChild, Input, Component, ElementRef } from '@angular/core';
 import { CanvasService } from './canvas.service';
-import { remote } from 'electron';
 
 
 @Component({

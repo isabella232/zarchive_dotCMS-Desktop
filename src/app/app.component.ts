@@ -1,7 +1,6 @@
-import {AppConfig, APP_CONFIG} from "./app.config";
 let filters = require('./../assets/data/filters.json');
 
-import {Component, NgZone, Inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {AppRouterService} from "./app-router.service";
 
 @Component({

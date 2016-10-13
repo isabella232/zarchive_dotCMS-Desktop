@@ -1,16 +1,15 @@
-import {readFile} from "fs";
+import {HttpClient} from "dotJS/core/util/http.service";
 let filters = require('./../../assets/data/filters.json');
 
 import {ViewChild, Component, ChangeDetectorRef, ElementRef, Injectable} from '@angular/core';
 import {CanvasService} from './canvas.service';
-import {HttpClient} from '../util/http.service';
 import {remote, ipcRenderer} from 'electron';
 import {writeFile} from 'fs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
-import {NotificationService} from "../util/notification.service";
 import {SettingsService} from "../settings/shared/settings.service";
+import {NotificationService} from "dotJS/core/util/notification.service";
 
 var fs = require('fs');
 
