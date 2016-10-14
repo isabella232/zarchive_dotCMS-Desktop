@@ -21,23 +21,25 @@ import {CanvasService} from "./image-edit/canvas.service";
 import {AppRouterService} from "./app-router.service";
 import {PasswordModule} from "primeng/components/password/password";
 import {FormsModule} from "@angular/forms";
-import {SiteSelectorComponent} from "dotJS/components/site-selector/site-selector.component";
-import {SiteTreeTableComponent} from "dotJS/components/site-treetable/site-treetable.component";
-import {BreadcrumbComponent} from "dotJS/components/breadcrumb/breadcrumb.componet";
-import {SiteDatatableComponent} from "dotJS/components/site-datatable/site-datatable.component";
-import {TreeableDetailComponent} from "dotJS/components/treeable-detail/treeable-detail.component";
-import {HttpClient} from "dotJS/core/util/http.service";
-import {NotificationService} from "dotJS/core/util/notification.service";
-import {FileSystemService} from "dotJS/core/util/filesystem.service";
-import {SiteTreetableService} from "dotJS/components/site-treetable/site-treetable.service";
-import {SiteBrowserService} from "dotJS/core/util/site-browser.service";
-import {SiteSelectorService} from "dotJS/components/site-selector/site-selector.service";
-import {LoggerService} from "dotJS/core/util/logger.service";
-import {JWTAuthService} from "dotJS/core/util/jwt-auth.service";
-import {SettingsStorageService} from "dotJS/core/util/settings-storage.service";
-import {LocalStoreService} from "dotJS/core/util/local-store.service";
-import {SiteBrowserState} from "dotJS/core/util/site-browser.state";
-import {APP_CONFIG, DOT_CONFIG} from "dotJS/core/app.config";
+import {SiteSelectorComponent} from "dotcms-js/components/site-selector/site-selector.component";
+import {SiteTreeTableComponent} from "dotcms-js/components/site-treetable/site-treetable.component";
+import {BreadcrumbComponent} from "dotcms-js/components/breadcrumb/breadcrumb.componet";
+import {SiteDatatableComponent} from "dotcms-js/components/site-datatable/site-datatable.component";
+import {TreeableDetailComponent} from "dotcms-js/components/treeable-detail/treeable-detail.component";
+import {HttpClient} from "dotcms-js/core/util/http.service";
+import {NotificationService} from "dotcms-js/core/util/notification.service";
+import {FileSystemService} from "dotcms-js/core/util/filesystem.service";
+import {SiteTreetableService} from "dotcms-js/components/site-treetable/site-treetable.service";
+import {SiteBrowserService} from "dotcms-js/core/util/site-browser.service";
+import {SiteSelectorService} from "dotcms-js/components/site-selector/site-selector.service";
+import {LoggerService} from "dotcms-js/core/util/logger.service";
+import {JWTAuthService} from "dotcms-js/core/util/jwt-auth.service";
+import {SettingsStorageService} from "dotcms-js/core/util/settings-storage.service";
+import {LocalStoreService} from "dotcms-js/core/util/local-store.service";
+import {SiteBrowserState} from "dotcms-js/core/util/site-browser.state";
+import {DOT_CONFIG} from "./app.config";
+import {APP_CONFIG} from "dotcms-js/core/app.config";
+
 
 
 

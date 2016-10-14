@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {SettingsService} from "./shared/settings.service";
-import {DotSettings} from "dotJS/core/util/settings.model";
-import {SettingsStorageService} from "dotJS/core/util/settings-storage.service";
+import {DotSettings} from "dotcms-js/core/util/settings.model";
+import {SettingsStorageService} from "dotcms-js/core/util/settings-storage.service";
 
 export class ConfigSettings {
     siteURL : string

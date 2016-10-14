@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {AppRouterService} from "../app-router.service";
-import {SettingsStorageService} from "dotJS/core/util/settings-storage.service";
+import {SettingsStorageService} from "dotcms-js/core/util/settings-storage.service";
 
 @Component({
     selector: 'browser-tree',

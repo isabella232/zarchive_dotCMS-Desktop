@@ -1,4 +1,4 @@
-import {HttpClient} from "dotJS/core/util/http.service";
+import {HttpClient} from "dotcms-js/core/util/http.service";
 let filters = require('./../../assets/data/filters.json');
 
 import {ViewChild, Component, ChangeDetectorRef, ElementRef, Injectable} from '@angular/core';
@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 import {SettingsService} from "../settings/shared/settings.service";
-import {NotificationService} from "dotJS/core/util/notification.service";
+import {NotificationService} from "dotcms-js/core/util/notification.service";
 
 var fs = require('fs');
 

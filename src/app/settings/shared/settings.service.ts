@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {ConfigSettings} from "../settings.component";
 import {AppRouterService} from "../../app-router.service";
-import {JWTAuthService} from "dotJS/core/util/jwt-auth.service";
-import {SettingsStorageService} from "dotJS/core/util/settings-storage.service";
+import {JWTAuthService} from "dotcms-js/core/util/jwt-auth.service";
+import {SettingsStorageService} from "dotcms-js/core/util/settings-storage.service";
 
 @Injectable()
 export class SettingsService {
