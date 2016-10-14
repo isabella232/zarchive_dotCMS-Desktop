@@ -39,6 +39,7 @@
     "@angular/platform-browser-dynamic": "2.0.0",
     "@angular/router": "3.0.0",
     "angular2-logger": "^0.5.0",
+    "dotcms-js": "0.0.1",
     "electron-json-storage": "^2.0.0",
     "electron-reload": "^0.3.0",
     "es6-shim": "^0.35.1",
